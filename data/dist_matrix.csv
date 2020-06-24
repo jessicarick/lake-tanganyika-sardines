@@ -1,0 +1,14 @@
+,CrocodileIsland,Ikola,Kabimba,Kagunga,Kasanga,Kigoma,Kilomoni,Kipili,Kivu,Lusenda,Mbete,NorthMahale,SouthMahale
+CrocodileIsland,0,,,,,,,,,,,,
+Ikola,214,0,,,,,,,,,,,
+Kabimba,402,188,0,,,,,,,,,,
+Kagunga,506,292,104,0,,,,,,,,,
+Kasanga,6,208,396,500,0,,,,,,,,
+Kigoma,464,250,62,42,458,0,,,,,,,
+Kilomoni,635,421,233,129,629,171,0,,,,,,
+Kipili,144,70,258,362,138,320,491,0,,,,,
+Kivu,1506,1421,1233,1129,1500,1171,1000,1491,0,,,,
+Lusenda,578,364,176,72,572,114,57,434,1057,0,,,
+Mbete,7,221,409,513,13,471,642,151,1642,585,0,,
+NorthMahale,359,145,43,147,353,105,276,215,1276,219,366,0,
+SouthMahale,254,40,148,252,248,210,381,110,1381,324,261,105,0
