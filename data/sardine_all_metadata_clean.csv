@@ -1,0 +1,351 @@
+FishEC_code,sample_name,spp_field_id,preservation_method,place_fished,collected_by,collection_date,collection_year,general_location,landing_site,country,landing_site_latitude,landing_site_longitude,library,sequencing_center,standard_length_mm,total_length_mm,pheno_sex,pheno_category,genetic_spp,genetic_sex
+138458.BUH003,BUH003,Stolo,dried,NA,Wagner,7/17/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 1,Floragenex,32,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138459.BUH004,BUH004,Stolo,dried,NA,Wagner,7/17/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 1,Floragenex,25,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138460.BUH005,BUH005,Stolo,dried,NA,Wagner,7/17/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 1,Floragenex,46,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138461.BUH006,BUH006,Stolo,dried,NA,Wagner,7/17/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 1,Floragenex,24,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138463.BUH009,BUH009,Stolo,dried,NA,Wagner,7/17/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 1,Floragenex,32,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138464.BUH010,BUH010,Stolo,dried,NA,Wagner,7/17/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 1,Floragenex,43,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138465.BUH011,BUH011,Stolo,dried,NA,Wagner,7/17/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 1,Floragenex,39,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138466.BUH012,BUH012,Unclear,dried,Unknown,Wagner,10/21/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,36,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138467.BUH013,BUH013,Unclear,dried,Unknown,Wagner,10/21/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,49,54,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138468.BUH015,BUH015,Unclear,dried,Unknown,Wagner,10/21/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,37,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138469.BUH016,BUH016,Unclear,dried,Unknown,Wagner,10/21/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,35,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138470.BUH017,BUH017,Unclear,dried,Unknown,Wagner,10/21/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,36,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138571.TNC001,TNC001,Limno,ethanol,Katato River,TNC,5/28/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 1,Floragenex,88,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138572.TNC002,TNC002,Limno,ethanol,Katato River,TNC,5/28/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 1,Floragenex,94,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138573.TNC003,TNC003,Limno,ethanol,Katato River,TNC,5/28/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 1,Floragenex,90,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138574.TNC004,TNC004,Limno,ethanol,Katato River,TNC,5/28/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 1,Floragenex,94,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138590.TNC030,TNC030,Limno,ethanol,Lagosa Kwaguu,TNC,5/28/15,2015,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 1,Floragenex,57,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138597.TNC055,TNC055,Limno,dried,Left,TNC,4/16/16,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,79,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138600.TNC059,TNC059,Stolo,dried,Right,TNC,4/16/16,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,74,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138601.TNC060,TNC060,Stolo,dried,Right,TNC,4/16/16,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,73,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138636.TNC103,TNC103,Stolo,dried,NA,TNC,10/21/15,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,33,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138637.TNC104,TNC104,Stolo,dried,NA,TNC,10/21/15,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,43,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138638.TNC105,TNC105,Stolo,dried,NA,TNC,10/21/15,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,42,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138639.TNC106,TNC106,Stolo,dried,NA,TNC,10/21/15,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,41,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138640.TNC107,TNC107,Stolo,dried,NA,TNC,10/21/15,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,52,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138641.TNC108,TNC108,Stolo,dried,NA,TNC,10/21/15,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,40,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138642.TNC109,TNC109,Stolo,dried,NA,TNC,7/17/15,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,46,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138643.TNC110,TNC110,Stolo,dried,NA,TNC,7/17/15,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,39,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138644.TNC111,TNC111,Stolo,dried,NA,TNC,7/17/15,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,35,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138645.TNC112,TNC112,Stolo,dried,NA,TNC,7/17/15,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,34,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138647.TNC114,TNC114,Stolo,dried,NA,TNC,7/17/15,2016,NorthMahale,Buhingu,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,35,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138631.TNC098,TNC098,Limno,dried,NA,TNC,4/16/16,2016,NorthMahale,Buhingu1,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,73,78,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138632.TNC099,TNC099,Limno,dried,NA,TNC,4/16/16,2016,NorthMahale,Buhingu1,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,76,81,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138633.TNC100,TNC100,Limno,dried,NA,TNC,4/16/16,2016,NorthMahale,Buhingu1,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,84,90,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138634.TNC101,TNC101,Limno,dried,NA,TNC,4/16/16,2016,NorthMahale,Buhingu1,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,76,83,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138598.TNC057,TNC057,Stolo,dried,Southern,TNC,7/11/16,2016,Kigoma,Igalala,TNZ,-5.179231,29.7905,FGX lib 2,Floragenex,79,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138616.TNC079,TNC079,Stolo,dried,NA,TNC,7/11/16,2016,Kigoma,Igalula,TNZ,-5.179231,29.7905,FGX lib 2,Floragenex,53,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138617.TNC080,TNC080,Stolo,dried,NA,TNC,7/11/16,2016,Kigoma,Igalula,TNZ,-5.179231,29.7905,FGX lib 2,Floragenex,61,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138618.TNC081,TNC081,Stolo,dried,NA,TNC,7/11/16,2016,Kigoma,Igalula,TNZ,-5.179231,29.7905,FGX lib 2,Floragenex,56,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138619.TNC082,TNC082,Stolo,dried,NA,TNC,7/11/16,2016,Kigoma,Igalula,TNZ,-5.179231,29.7905,FGX lib 2,Floragenex,59,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138635.TNC102,TNC102,Stolo,dried,Kamyasi,TNC,7/10/16,2016,Kigoma,Igalula,TNZ,-5.179231,29.7905,FGX lib 2,Floragenex,65,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138916.IKO55,IKO55,Limno,ethanol,NA,Junker,9/17/17,2017,Ikola,Ikola,TNZ,-6.776212,30.404721,JJ lib 2,Lausanne,127,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138919.IKO58,IKO58,Limno,ethanol,NA,Junker,9/17/17,2017,Ikola,Ikola,TNZ,-6.776212,30.404721,JJ lib 2,Lausanne,130,NA,male,Limnothrissa_male,Limnothrissa,Limno_Sex_B
+138918.IKO57,IKO57,Limno,ethanol,NA,Junker,9/17/17,2017,Ikola,Ikola,TNZ,-6.776212,30.404721,JJ lib 2,Lausanne,124,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138917.IKO56,IKO56,Limno,ethanol,NA,Junker,9/17/17,2017,Ikola,Ikola,TNZ,-6.776212,30.404721,JJ lib 2,Lausanne,122,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138954.IKO93,IKO93,Limno,ethanol,NA,Junker,9/17/17,2017,Ikola,Ikola,TNZ,-6.776212,30.404721,JJ lib 2,Lausanne,107,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138953.IKO92,IKO92,Limno,ethanol,NA,Junker,9/17/17,2017,Ikola,Ikola,TNZ,-6.776212,30.404721,JJ lib 2,Lausanne,123,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138955.IKO94,IKO94,Limno,ethanol,NA,Junker,9/17/17,2017,Ikola,Ikola,TNZ,-6.776212,30.404721,JJ lib 2,Lausanne,104,NA,male,Limnothrissa_male,Limnothrissa,Limno_Sex_B
+138952.IKO91,IKO91,Limno,ethanol,NA,Junker,9/17/17,2017,Ikola,Ikola,TNZ,-6.776212,30.404721,JJ lib 2,Lausanne,103,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138951.IKO90,IKO90,Limno,ethanol,NA,Junker,9/17/17,2017,Ikola,Ikola,TNZ,-6.776212,30.404721,JJ lib 2,Lausanne,103,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138956.IKO95,IKO95,Limno,ethanol,NA,Junker,9/17/17,2017,Ikola,Ikola,TNZ,-6.776212,30.404721,JJ lib 2,Lausanne,97,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138915.IKO54,IKO54,Limno,ethanol,NA,Junker,9/17/17,2017,Ikola,Ikola,TNZ,-6.776212,30.404721,JJ lib 2,Lausanne,125,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138950.IKO89,IKO89,Limno,ethanol,NA,Junker,9/17/17,2017,Ikola,Ikola,TNZ,-6.776212,30.404721,JJ lib 2,Lausanne,130,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138393.KAB10,KAB10,Stolo,ethanol,NA,Floating clinic,7/8/16,2016,Kabimba,Kabimba_DRC,DRC,-4.8710186,28.7432562,JJ lib 1,Lausanne,35,39,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138394.KAB11,KAB11,Stolo,ethanol,NA,Floating clinic,7/8/16,2016,Kabimba,Kabimba_DRC,DRC,-4.8710186,28.7432562,JJ lib 1,Lausanne,24,27,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138395.KAB12,KAB12,Stolo,ethanol,NA,Floating clinic,7/8/16,2016,Kabimba,Kabimba_DRC,DRC,-4.8710186,28.7432562,JJ lib 1,Lausanne,40,44,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138396.KAB13,KAB13,Stolo,ethanol,NA,Floating clinic,7/8/16,2016,Kabimba,Kabimba_DRC,DRC,-4.8710186,28.7432562,JJ lib 1,Lausanne,31,34,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138397.KAB14,KAB14,Stolo,ethanol,NA,Floating clinic,7/8/16,2016,Kabimba,Kabimba_DRC,DRC,-4.8710186,28.7432562,JJ lib 1,Lausanne,38,43,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138398.KAB15,KAB15,Stolo,ethanol,NA,Floating clinic,7/8/16,2016,Kabimba,Kabimba_DRC,DRC,-4.8710186,28.7432562,JJ lib 1,Lausanne,39,43,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138399.KAB16,KAB16,Stolo,ethanol,NA,Floating clinic,7/8/16,2016,Kabimba,Kabimba_DRC,DRC,-4.8710186,28.7432562,JJ lib 1,Lausanne,41,45,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138593.TNC043,TNC043,Limno,dried,48km N of Kigoma (S04 27.149 E029 39.622),TNC,6/8/16,2016,Kigoma,Kigoma,TNZ,-4.4525,29.6604,FGX lib 2,Floragenex,49,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138594.TNC044,TNC044,Limno,dried,48km N of Kigoma (S04 27.149 E029 39.622),TNC,6/8/16,2016,Kigoma,Kigoma,TNZ,-4.4525,29.6604,FGX lib 2,Floragenex,56,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138614.TNC077,TNC077,Stolo,dried,48km N of Kigoma (S04 27.149 E029 39.622),TNC,6/8/16,2016,Kigoma,Kigoma,TNZ,-4.4525,29.6604,FGX lib 2,Floragenex,41,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138615.TNC078,TNC078,Stolo,dried,48km N of Kigoma (S04 27.14  E029 39.622),TNC,6/8/16,2016,Kigoma,Kigoma,TNZ,-4.4525,29.6604,FGX lib 2,Floragenex,45,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+139241.KAG75,KAG75,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,91,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139246.KAG80,KAG80,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,100,NA,male,Limnothrissa_male,Limnothrissa,Limno_Sex_B
+139252.KAG86,KAG86,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,90,NA,male,Limnothrissa_male,Limnothrissa,Limno_Sex_B
+139249.KAG83,KAG83,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,94,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139244.KAG78,KAG78,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,112,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139245.KAG79,KAG79,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,102,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+139240.KAG74,KAG74,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,106,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139362.KAG107,KAG107,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,20,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139359.KAG104,KAG104,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,20,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139363.KAG108,KAG108,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,20,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139360.KAG105,KAG105,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,20,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139239.KAG73,KAG73,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,116,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139358.KAG103,KAG103,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,20,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139365.KAG110,KAG110,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,20,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139366.KAG111,KAG111,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,20,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139367.KAG112,KAG112,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,20,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139361.KAG106,KAG106,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,20,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139364.KAG109,KAG109,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,20,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139247.KAG81,KAG81,Limno,ethanol,NA,Junker,9/24/17,2017,Kagunga,Kagunga,TNZ,-4.455628,29.659774,JJ lib 2,Lausanne,93,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138604.TNC063,TNC063,Stolo,dried,Igalala,TNC,7/10/16,2016,Kigoma,Kamyasi,TNZ,-5.179231,29.7905,FGX lib 2,Floragenex,62,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138605.TNC064,TNC064,Stolo,dried,Igalala,TNC,7/10/16,2016,Kigoma,Kamyasi,TNZ,-5.179231,29.7905,FGX lib 2,Floragenex,66,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138583.TNC018,TNC018,Stolo,ethanol,Sibwesa Lyamembe,TNC,5/28/15,2015,NorthMahale,Karumba Wameyu,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,71,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+139128.KAS54,KAS54,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,111,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139140.KAS59,KAS59,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,106,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139137.KAS56,KAS56,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,106,NA,male,Limnothrissa_male,Limnothrissa,Limno_Sex_B
+139139.KAS58,KAS58,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,112,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139124.KAS50,KAS50,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,104,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139143.KAS62,KAS62,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,126,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139121.KAS47,KAS47,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,101,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139100.KAS26,KAS26,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,105,NA,male,Limnothrissa_male,Limnothrissa,Limno_Sex_B
+139117.KAS43,KAS43,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,114,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+139113.KAS39,KAS39,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,104,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139103.KAS29,KAS29,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,103,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139126.KAS52,KAS52,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,105,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139118.KAS44,KAS44,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,114,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139110.KAS36,KAS36,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,116,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139104.KAS30,KAS30,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,109,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139105.KAS31,KAS31,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,111,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139112.KAS38,KAS38,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,107,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139123.KAS49,KAS49,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,101,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139098.KAS24,KAS24,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,105,NA,male,Limnothrissa_male,Limnothrissa,Limno_Sex_B
+139107.KAS33,KAS33,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,111,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139111.KAS37,KAS37,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,105,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139122.KAS48,KAS48,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,105,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+139099.KAS25,KAS25,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,113,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139101.KAS27,KAS27,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,108,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+139119.KAS45,KAS45,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,105,NA,male,Limnothrissa_male,Limnothrissa,Limno_Sex_B
+139109.KAS35,KAS35,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,111,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139102.KAS28,KAS28,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,116,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139108.KAS34,KAS34,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,127,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139116.KAS42,KAS42,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,111,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139125.KAS51,KAS51,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,105,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139114.KAS40,KAS40,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,112,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139138.KAS57,KAS57,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,113,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139115.KAS41,KAS41,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,113,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139120.KAS46,KAS46,Limno,ethanol,NA,Junker,9/20/17,2017,Kasanga,Kasanga,TNZ,-8.450431,31.140473,JJ lib 2,Lausanne,105,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138612.TNC075,TNC075,Stolo,dried,E04 95510 S029 64249,TNC,11/10/16,2016,Kigoma,Katonga,TNZ,-4.9107,29.6238,FGX lib 2,Floragenex,43,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138613.TNC076,TNC076,Stolo,dried,E04 95510 S029 64249,TNC,11/10/16,2016,Kigoma,Katonga,TNZ,-4.9107,29.6238,FGX lib 2,Floragenex,42,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138620.TNC084,TNC084,Stolo,dried,NA,TNC,11/10/16,2016,Kigoma,Katonga,TNZ,-4.9107,29.6238,FGX lib 2,Floragenex,36,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138621.TNC085,TNC085,Stolo,dried,NA,TNC,11/10/16,2016,Kigoma,Katonga,TNZ,-4.9107,29.6238,FGX lib 2,Floragenex,37,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138622.TNC087,TNC087,Stolo,dried,NA,TNC,11/10/16,2016,Kigoma,Katonga,TNZ,-4.9107,29.6238,FGX lib 2,Floragenex,39,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138623.TNC090,TNC090,Stolo,dried,NA,TNC,11/10/16,2016,Kigoma,Katonga,TNZ,-4.9107,29.6238,FGX lib 2,Floragenex,38,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138835.KAT34,KAT34,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,91,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138837.KAT36,KAT36,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,94,NA,#N/A,#N/A,#N/A,#N/A
+138838.KAT37,KAT37,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,87,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138827.KAT26,KAT26,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,99,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+138826.KAT25,KAT25,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,91,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+138821.KAT20,KAT20,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,90,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138829.KAT28,KAT28,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,90,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138839.KAT38,KAT38,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,80,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138831.KAT30,KAT30,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,87,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+138822.KAT21,KAT21,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,84,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138841.KAT40,KAT40,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,83,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138832.KAT31,KAT31,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,86,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+138825.KAT24,KAT24,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,89,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138824.KAT23,KAT23,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,93,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138842.KAT41,KAT41,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,90,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+138823.KAT22,KAT22,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,90,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138828.KAT27,KAT27,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,98,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+138833.KAT32,KAT32,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,87,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138840.KAT39,KAT39,Limno,ethanol,NA,Junker,,2017,Kigoma,Katonga,TNZ,-4.9107,29.6238,JJ lib 2,Lausanne,87,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138517.KIG103,KIG103,Limno,dried,10 min from Katonga nearshore by boat,McIntyre,10/9/15,2015,Kigoma,Katonga1,TNZ,-4.8608,29.62416,FGX lib 2,Floragenex,34,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138518.KIG104,KIG104,Limno,dried,10 min from Katonga nearshore by boat,McIntyre,10/9/15,2015,Kigoma,Katonga1,TNZ,-4.8608,29.62416,FGX lib 2,Floragenex,30,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138519.KIG105,KIG105,Limno,dried,10 min from Katonga nearshore by boat,McIntyre,10/9/15,2015,Kigoma,Katonga1,TNZ,-4.8608,29.62416,FGX lib 2,Floragenex,27,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138520.KIG106,KIG106,Limno,dried,10 min from Katonga nearshore by boat,McIntyre,10/9/15,2015,Kigoma,Katonga1,TNZ,-4.8608,29.62416,FGX lib 2,Floragenex,30,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138521.KIG107,KIG107,Limno,dried,10 min from Katonga nearshore by boat,McIntyre,10/9/15,2015,Kigoma,Katonga1,TNZ,-4.8608,29.62416,FGX lib 2,Floragenex,29,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138522.KIG109,KIG109,Unclear,dried,Kiza GPS,0,10/18/15,2015,Kigoma,Katonga2,TNZ,-4.8608,29.62416,FGX lib 2,Floragenex,81,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138523.KIG110,KIG110,Unclear,dried,Kiza GPS,0,10/18/15,2015,Kigoma,Katonga2,TNZ,-4.8608,29.62416,FGX lib 2,Floragenex,69,77,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138524.KIG111,KIG111,Unclear,dried,Kiza GPS,0,10/18/15,2015,Kigoma,Katonga2,TNZ,-4.8608,29.62416,FGX lib 2,Floragenex,67,74,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138525.KIG112,KIG112,Unclear,dried,Kiza GPS,0,10/18/15,2015,Kigoma,Katonga2,TNZ,-4.8608,29.62416,FGX lib 2,Floragenex,67,74,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138526.KIG113,KIG113,Unclear,dried,Kiza GPS,0,10/18/15,2015,Kigoma,Katonga2,TNZ,-4.8608,29.62416,FGX lib 2,Floragenex,57,62,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138527.KIG114,KIG114,Unclear,dried,Kiza GPS,0,10/18/15,2015,Kigoma,Katonga2,TNZ,-4.8608,29.62416,FGX lib 2,Floragenex,69,76,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138591.TNC038,TNC038,Limno,ethanol,Kambi Kalolwa,TNC,6/10/15,2015,NorthMahale,Katumbi,TNZ,-5.991219,29.787729,FGX lib 1,Floragenex,25,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138592.TNC041,TNC041,Limno,ethanol,Kambi Kalolwa,TNC,6/10/15,2015,NorthMahale,Katumbi,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,62,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138606.TNC065,TNC065,Stolo,dried,Left,TNC,3/16/16,2016,NorthMahale,Katumbi,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,68,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138607.TNC066,TNC066,Stolo,dried,Left,TNC,3/16/16,2016,NorthMahale,Katumbi,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,70,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+139312.KIB01,KIB01,Limno,ethanol,NA,Junker,,2017,Kigoma,Kiberizi,TNZ,-4.8608,29.62416,JJ lib 2,Lausanne,100,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138568.SIB033,SIB033,Stolo,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kiberizi or Katonga,TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,54,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138569.SIB037,SIB037,Stolo,dried,Kigoma-presumably,McIntyre,7/26/15,2015,Kigoma,Kiberizi or Katonga,TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,61,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138570.SIB038,SIB038,Limno,smoked,Kigoma-presumably,McIntyre,7/26/15,2015,Kigoma,Kiberizi or Katonga,TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,75,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138471.KIG002,KIG002,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,42,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138472.KIG003,KIG003,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,46,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138474.KIG006,KIG006,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,40,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138475.KIG007,KIG007,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,39,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138476.KIG008,KIG008,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,48,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138477.KIG009,KIG009,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,43,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138478.KIG010,KIG010,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,41,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138479.KIG011,KIG011,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,37,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138480.KIG012,KIG012,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,37,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138481.KIG014,KIG014,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,43,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138482.KIG015,KIG015,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,41,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138483.KIG016,KIG016,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,47,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138484.KIG017,KIG017,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,41,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138485.KIG018,KIG018,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,41,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138486.KIG019,KIG019,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,47,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138487.KIG020,KIG020,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,39,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138488.KIG021,KIG021,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,46,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138489.KIG022,KIG022,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,39,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138490.KIG023,KIG023,Stolo,dried,near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,47,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138491.KIG031,KIG031,Stolo,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,41,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138493.KIG033,KIG033,Stolo,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,34,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138494.KIG034,KIG034,Stolo,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,37,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138495.KIG043,KIG043,Stolo,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,32,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138496.KIG056,KIG056,Limno,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,74,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138497.KIG057,KIG057,Limno,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,80,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138498.KIG058,KIG058,Limno,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,79,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138499.KIG059,KIG059,Limno,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,72,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138500.KIG060,KIG060,Limno,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,69,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138501.KIG067,KIG067,Limno,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,65,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138502.KIG070,KIG070,Limno,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,77,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138503.KIG071,KIG071,Limno,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,69,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138504.KIG076,KIG076,Limno,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,52,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138505.KIG080,KIG080,Limno,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,55,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138506.KIG081,KIG081,Limno,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,72,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138507.KIG083,KIG083,Limno,dried,Presumably near Kigoma,McIntyre,7/26/15,2015,Kigoma,Kibirizi or Katonga (Kigoma Market),TNZ,-4.8608,29.62416,FGX lib 1,Floragenex,62,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138508.KIG091,KIG091,Stolo,dried,Bought fresh dried Nondwa Point,McIntyre,7/9/15,2015,Kigoma,Kigodeco,TNZ,-4.8738,29.62073,FGX lib 2,Floragenex,46,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138509.KIG092,KIG092,Stolo,dried,Bought fresh dried Nondwa Point,McIntyre,7/9/15,2015,Kigoma,Kigodeco,TNZ,-4.8738,29.62073,FGX lib 2,Floragenex,42,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138510.KIG093,KIG093,Stolo,dried,Bought fresh dried Nondwa Point,McIntyre,7/9/15,2015,Kigoma,Kigodeco,TNZ,-4.8738,29.62073,FGX lib 2,Floragenex,40,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138511.KIG096,KIG096,Stolo,dried,Bought fresh dried Nondwa Point,McIntyre,7/9/15,2015,Kigoma,Kigodeco,TNZ,-4.8738,29.62073,FGX lib 2,Floragenex,49,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138512.KIG098,KIG098,Limno,dried,Mondura Point,McIntyre caught fresh and dried at Tafiri,9/7/15,2015,Kigoma,Kigodeco,TNZ,-4.8738,29.62073,FGX lib 2,Floragenex,71,76,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138513.KIG099,KIG099,Limno,dried,Mondura Point,McIntyre caught fresh and dried at Tafiri,9/7/15,2015,Kigoma,Kigodeco,TNZ,-4.8738,29.62073,FGX lib 2,Floragenex,72,77,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138514.KIG100,KIG100,Limno,dried,Mondura Point,McIntyre caught fresh and dried at Tafiri,9/7/15,2015,Kigoma,Kigodeco,TNZ,-4.8738,29.62073,FGX lib 2,Floragenex,75,81,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138515.KIG101,KIG101,Limno,dried,Mondura Point,McIntyre caught fresh and dried at Tafiri,9/7/15,2015,Kigoma,Kigodeco,TNZ,-4.8738,29.62073,FGX lib 2,Floragenex,80,86,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138516.KIG102,KIG102,Limno,dried,Mondura Point,McIntyre caught fresh and dried at Tafiri,9/7/15,2015,Kigoma,Kigodeco,TNZ,-4.8738,29.62073,FGX lib 2,Floragenex,74,81,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138325.KIL25,KIL25,Stolo,ethanol,NA,Floating clinic,6/8/16,2016,Kilomoni,Kilomoni_DRC,DRC,-3.3665188,29.1362089,JJ lib 1,Lausanne,55,62,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138326.KIL26,KIL26,Stolo,ethanol,NA,Floating clinic,6/8/16,2016,Kilomoni,Kilomoni_DRC,DRC,-3.3665188,29.1362089,JJ lib 1,Lausanne,45,49,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138327.KIL27,KIL27,Stolo,ethanol,NA,Floating clinic,6/8/16,2016,Kilomoni,Kilomoni_DRC,DRC,-3.3665188,29.1362089,JJ lib 1,Lausanne,44,49,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138328.KIL28,KIL28,Stolo,ethanol,NA,Floating clinic,6/8/16,2016,Kilomoni,Kilomoni_DRC,DRC,-3.3665188,29.1362089,JJ lib 1,Lausanne,45,50,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138329.KIL29,KIL29,Stolo,ethanol,NA,Floating clinic,6/8/16,2016,Kilomoni,Kilomoni_DRC,DRC,-3.3665188,29.1362089,JJ lib 1,Lausanne,58,66,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138331.KIL31,KIL31,Stolo,ethanol,NA,Floating clinic,6/8/16,2016,Kilomoni,Kilomoni_DRC,DRC,-3.3665188,29.1362089,JJ lib 1,Lausanne,44,47,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138332.KIL32,KIL32,Stolo,ethanol,NA,Floating clinic,6/8/16,2016,Kilomoni,Kilomoni_DRC,DRC,-3.3665188,29.1362089,JJ lib 1,Lausanne,48,53,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+139001.KIP33,KIP33,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,81,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139020.KIP52,KIP52,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,81,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139025.KIP57,KIP57,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,75,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138992.KIP24,KIP24,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,113,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139021.KIP53,KIP53,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,100,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139008.KIP40,KIP40,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,91,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139017.KIP49,KIP49,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,97,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138976.KIP09,KIP09,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,97,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138999.KIP31,KIP31,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,88,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138985.KIP18,KIP18,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,97,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139027.KIP59,KIP59,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,71,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138998.KIP30,KIP30,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,92,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+138980.KIP13,KIP13,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,99,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139023.KIP55,KIP55,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,87,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139029.KIP61,KIP61,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,88,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139007.KIP39,KIP39,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,88,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139018.KIP50,KIP50,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,101,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138995.KIP27,KIP27,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,102,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138996.KIP28,KIP28,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,100,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139019.KIP51,KIP51,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,87,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139022.KIP54,KIP54,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,99,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+138997.KIP29,KIP29,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,90,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138977.KIP10,KIP10,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,97,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138987.KIP20,KIP20,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,88,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138968.KIP01,KIP01,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,110,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139000.KIP32,KIP32,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,90,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139002.KIP34,KIP34,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,90,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139004.KIP36,KIP36,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,98,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139011.KIP43,KIP43,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,102,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+138972.KIP05,KIP05,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,103,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138983.KIP16,KIP16,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,105,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139010.KIP42,KIP42,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,94,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+139015.KIP47,KIP47,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,99,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138989.KIP21,KIP21,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,97,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138973.KIP06,KIP06,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,100,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138975.KIP08,KIP08,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,99,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138979.KIP12,KIP12,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,105,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139024.KIP56,KIP56,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,90,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139012.KIP44,KIP44,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,103,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138969.KIP02,KIP02,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,97,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138982.KIP15,KIP15,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,102,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+138993.KIP25,KIP25,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,110,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139009.KIP41,KIP41,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,91,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138971.KIP04,KIP04,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,105,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138978.KIP11,KIP11,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,100,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138984.KIP17,KIP17,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,97,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138986.KIP19,KIP19,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,99,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138991.KIP23,KIP23,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,96,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139028.KIP60,KIP60,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,73,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138970.KIP03,KIP03,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,90,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138981.KIP14,KIP14,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,111,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139016.KIP48,KIP48,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,95,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138994.KIP26,KIP26,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,109,NA,female,Limnothrissa_female,Limnothrissa,Limno_Sex_A
+138990.KIP22,KIP22,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,95,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139003.KIP35,KIP35,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,94,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139005.KIP37,KIP37,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,92,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+139013.KIP45,KIP45,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,98,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138974.KIP07,KIP07,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,97,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+139014.KIP46,KIP46,Limno,ethanol,NA,Junker,,2017,Kipili,Kipili,TNZ,-7.369199,30.613253,JJ lib 2,Lausanne,96,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138349.LUS17,LUS17,Stolo,ethanol,NA,Floating clinic,7/4/16,2016,Lusenda,Lusenda_DRC,DRC,-3.8900176,29.1089269,JJ lib 1,Lausanne,58,64,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138350.LUS18,LUS18,Stolo,ethanol,NA,Floating clinic,7/4/16,2016,Lusenda,Lusenda_DRC,DRC,-3.8900176,29.1089269,JJ lib 1,Lausanne,54,60,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138351.LUS19,LUS19,Stolo,ethanol,NA,Floating clinic,7/4/16,2016,Lusenda,Lusenda_DRC,DRC,-3.8900176,29.1089269,JJ lib 1,Lausanne,50,56,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138352.LUS20,LUS20,Stolo,ethanol,NA,Floating clinic,7/4/16,2016,Lusenda,Lusenda_DRC,DRC,-3.8900176,29.1089269,JJ lib 1,Lausanne,58,63,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138353.LUS21,LUS21,Stolo,ethanol,NA,Floating clinic,7/4/16,2016,Lusenda,Lusenda_DRC,DRC,-3.8900176,29.1089269,JJ lib 1,Lausanne,61,67,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138354.LUS22,LUS22,Stolo,ethanol,NA,Floating clinic,7/4/16,2016,Lusenda,Lusenda_DRC,DRC,-3.8900176,29.1089269,JJ lib 1,Lausanne,52,57,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138355.LUS23,LUS23,Stolo,ethanol,NA,Floating clinic,7/4/16,2016,Lusenda,Lusenda_DRC,DRC,-3.8900176,29.1089269,JJ lib 1,Lausanne,63,70,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138356.LUS24,LUS24,Stolo,ethanol,NA,Floating clinic,7/4/16,2016,Lusenda,Lusenda_DRC,DRC,-3.8900176,29.1089269,JJ lib 1,Lausanne,53,59,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138575.TNC005,TNC005,Stolo,ethanol,Buhingu Rasini Kwa Juu,TNC,5/28/15,2015,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 1,Floragenex,57,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138576.TNC006,TNC006,Stolo,ethanol,Buhingu Rasini Kwa Juu,TNC,5/28/15,2015,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,51,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138577.TNC007,TNC007,Stolo,ethanol,Buhingu Rasini Kwa Juu,TNC,5/28/15,2015,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 1,Floragenex,56,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138578.TNC008,TNC008,Stolo,ethanol,Buhingu Rasini Kwa Juu,TNC,5/28/15,2015,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,51,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138579.TNC009,TNC009,Stolo,ethanol,Katobelo Kwajuu,TNC,5/28/15,2015,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 1,Floragenex,69,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138580.TNC010,TNC010,Stolo,ethanol,Katobelo Kwajuu,TNC,5/28/15,2015,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 1,Floragenex,76,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138581.TNC011,TNC011,Stolo,ethanol,Katobelo Kwajuu,TNC,5/28/15,2015,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 1,Floragenex,74,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138582.TNC012,TNC012,Stolo,ethanol,Katobelo Kwajuu,TNC,5/28/15,2015,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 1,Floragenex,72,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138585.TNC023,TNC023,Limno,ethanol,Buhingu Kwa Juu,TNC,5/28/15,2015,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,71,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138586.TNC024,TNC024,Limno,ethanol,Buhingu Kwa Juu,TNC,5/28/15,2015,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 1,Floragenex,77,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138587.TNC025,TNC025,Limno,ethanol,Buhingu Kwa Juu,TNC,5/28/15,2015,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,67,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138595.TNC047,TNC047,Limno,dried,NA,TNC,7/12/16,2016,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,82,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138596.TNC048,TNC048,Limno,dried,NA,TNC,7/12/16,2016,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,78,84,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138624.TNC091,TNC091,Limno,dried,NA,TNC,7/12/16,2016,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,74,80,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138625.TNC092,TNC092,Limno,dried,NA,TNC,7/12/16,2016,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,75,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138626.TNC093,TNC093,Limno,dried,NA,TNC,7/12/16,2016,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,69,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138627.TNC094,TNC094,Limno,dried,NA,TNC,7/12/16,2016,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,72,77,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138628.TNC095,TNC095,Limno,dried,NA,TNC,7/12/16,2016,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,78,83,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138629.TNC096,TNC096,Limno,dried,NA,TNC,2/14/16,2016,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,76,80,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138630.TNC097,TNC097,Limno,dried,NA,TNC,2/14/16,2016,NorthMahale,Mgambo,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,75,80,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138588.TNC027,TNC027,Limno,ethanol,Buhingu Kwa Juu,TNC,5/28/15,2015,NorthMahale,Mgambo Madukani,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,68,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138589.TNC029,TNC029,Limno,ethanol,Buhingu Kwa Juu,TNC,5/28/15,2015,NorthMahale,Mgambo Madukani,TNZ,-5.969459,29.856588,FGX lib 2,Floragenex,70,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138602.TNC061,TNC061,Stolo,dried,Left,TNC,3/20/16,2016,NorthMahale,Nikokwa,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,68,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138603.TNC062,TNC062,Stolo,dried,Left,TNC,3/20/16,2016,NorthMahale,Nikokwa,TNZ,-5.991219,29.787729,FGX lib 2,Floragenex,66,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138608.TNC069,TNC069,Stolo,dried,Southern point,TNC,7/10/16,2016,SouthMahale,Sibwesa,TNZ,-6.495454,30.064173,FGX lib 2,Floragenex,59,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138609.TNC070,TNC070,Stolo,dried,Southern point,TNC,7/10/16,2016,SouthMahale,Sibwesa,TNZ,-6.495454,30.064173,FGX lib 2,Floragenex,53,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138610.TNC071,TNC071,Stolo,dried,Southern point,TNC,7/10/16,2016,SouthMahale,Sibwesa,TNZ,-6.495454,30.064173,FGX lib 2,Floragenex,65,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138611.TNC072,TNC072,Stolo,dried,Southern point,TNC,7/10/16,2016,SouthMahale,Sibwesa,TNZ,-6.495454,30.064173,FGX lib 2,Floragenex,59,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138535.SB71421,SB714_21,Limno,ethanol,Sibwesa Bay,Wagner,7/14/15,2015,SouthMahale,Sibwesa Bay,TNZ,-6.495454,30.064173,FGX lib 2,Floragenex,28,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138536.SB71422,SB714_22,Limno,ethanol,Sibwesa Bay,Wagner,7/14/15,2015,SouthMahale,Sibwesa Bay,TNZ,-6.495454,30.064173,FGX lib 2,Floragenex,20,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138537.SB71424,SB714_24,Limno,ethanol,Sibwesa Bay,Wagner,7/14/15,2015,SouthMahale,Sibwesa Bay,TNZ,-6.495454,30.064173,FGX lib 2,Floragenex,28,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138538.SB71425,SB714_25,Limno,ethanol,Sibwesa Bay,Wagner,7/14/15,2015,SouthMahale,Sibwesa Bay,TNZ,-6.495454,30.064173,FGX lib 2,Floragenex,27,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138539.SB71427,SB714_27,Limno,ethanol,Sibwesa Bay,Wagner,7/14/15,2015,SouthMahale,Sibwesa Bay,TNZ,-6.495454,30.064173,FGX lib 2,Floragenex,21,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138540.SB71429,SB714_29,Limno,ethanol,Sibwesa Bay,Wagner,7/14/15,2015,SouthMahale,Sibwesa Bay,TNZ,-6.495454,30.064173,FGX lib 2,Floragenex,24,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138541.SB71432,SB714_32,Limno,ethanol,Sibwesa Bay,Wagner,7/14/15,2015,SouthMahale,Sibwesa Bay,TNZ,-6.495454,30.064173,FGX lib 2,Floragenex,27,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138542.SB71440,SB714_40,Limno,ethanol,Sibwesa Bay,Wagner,7/14/15,2015,SouthMahale,Sibwesa Bay,TNZ,-6.495454,30.064173,FGX lib 2,Floragenex,24,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138543.SIB005,SIB005,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,25,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138544.SIB006,SIB006,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,22,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138545.SIB007,SIB007,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,21,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138546.SIB008,SIB008,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,21,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138547.SIB009,SIB009,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,24,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138548.SIB010,SIB010,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,24,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138549.SIB011,SIB011,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,26,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138550.SIB012,SIB012,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,24,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138551.SIB013,SIB013,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,21,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138552.SIB014,SIB014,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,23,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138553.SIB015,SIB015,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,23,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138554.SIB016,SIB016,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,25,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138555.SIB017,SIB017,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,26,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138556.SIB018,SIB018,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,23,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138557.SIB019,SIB019,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,23,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138558.SIB020,SIB020,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,24,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_B
+138559.SIB021,SIB021,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,23,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138560.SIB022,SIB022,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,21,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138561.SIB023,SIB023,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,24,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138562.SIB024,SIB024,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,24,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138563.SIB025,SIB025,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,23,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138564.SIB026,SIB026,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,25,NA,#N/A,#N/A,Stolothrissa,Stolo_Sex_A
+138565.SIB028,SIB028,Limno,ethanol,Sibwesa Bay,Wagner,7/1/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,23,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138566.SIB031,SIB031,Limno,ethanol,Sibwesa Bay,Wagner,7/14/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,23,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_A
+138567.SIB032,SIB032,Stolo,ethanol,Sibwesa Bay,Wagner,7/14/15,2015,SouthMahale,Sibwesa Bay School,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,45,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138529.SB71404,SB714_04,Juvenile,ethanol,Sibwesa rocks,Wagner,7/14/15,2015,SouthMahale,Sibwesa rocks,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,20,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138530.SB71405,SB714_05,Juvenile,ethanol,Sibwesa rocks,Wagner,7/14/15,2015,SouthMahale,Sibwesa rocks,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,19,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138534.SB71417,SB714_17,Juvenile,ethanol,Sibwesa rocks,Wagner,7/14/15,2015,SouthMahale,Sibwesa rocks,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,21,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138528.SB71403,SB714_03,Juvenile,ethanol,Sibwesa rocks,Wagner,7/14/15,2015,SouthMahale,South Mahale,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,20,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138531.SB71408,SB714_08,Juvenile,ethanol,Sibwesa rocks,Wagner,7/14/15,2015,SouthMahale,South Mahale,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,21,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138532.SB71410,SB714_10,Juvenile,ethanol,Sibwesa rocks,Wagner,7/14/15,2015,SouthMahale,South Mahale,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,23,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B
+138533.SB71416,SB714_16,Juvenile,ethanol,Sibwesa rocks,Wagner,7/14/15,2015,SouthMahale,South Mahale,TNZ,-6.495454,30.064173,FGX lib 1,Floragenex,21,NA,#N/A,#N/A,Limnothrissa,Limno_Sex_B

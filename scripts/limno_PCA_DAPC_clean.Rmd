@@ -1,0 +1,613 @@
+---
+title: "Limnothrissa Sex & Inversion DAPC and PCA Analyses"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r include=FALSE, purl=FALSE}
+knitr::opts_chunk$set(echo = TRUE,warning=FALSE,message=FALSE)
+```
+
+
+First, I'll load the packages necessary and define the PCA function.
+
+```{r}
+source("packages_functions.R")
+```
+
+## Importing the SNP data
+Now, I'll import the data that I want to use. For this, I'm working with the dataset created with the following filters: missing data allowed = 50%, MAF = 0.01 cutoff.
+
+```{r message=FALSE, import-data}
+limno_vcfR<-read.vcfR("../data/limno_all_0.5_maf0.01.recode.vcf")
+```
+
+## Cleaning up the data
+I now need to convert the genotypes (encoded as ./., 0/0, 0/1, 1/1) into genotype values (0,1,2). I'm also going to clean up the individual IDs and remove library effects (i.e. SNPs with genotype calls in only one library or the another) while doing this.
+
+```{r message=FALSE, clean-data}
+limnogen <- vcfR2genlight(limno_vcfR)
+col.names <- unlist(strsplit(indNames(limnogen),"/project/wagnerlab/jrick/dagaa/rad/bamfiles/aln_"))
+col.names.clean <- unlist(strsplit(col.names,".sorted.bam"))
+indNames(limnogen)<-col.names.clean
+
+fishinfo<-read.csv('../data/dagaa_combined_info_dec2019.csv',
+                   header=TRUE,stringsAsFactors = FALSE)
+pairedinfoLimno <- left_join(data.frame(New_ID=col.names.clean),fishinfo,by="New_ID")
+
+## filtering SNPs found only in one group or the other
+pop(limnogen) <- pairedinfoLimno$lab
+
+floragenex <- gl.keep.pop(limnogen,
+                          "Floragenex", mono.rm=F)
+na <- glNA(floragenex,alleleAsUnit = FALSE)/length(indNames(floragenex))
+floragenex.highcalls <- floragenex[,locNames(floragenex)[na < 0.25]]
+
+lausanne <- gl.keep.pop(limnogen,
+                        "Lausanne", mono.rm=F)
+na <- glNA(lausanne,alleleAsUnit = FALSE)/length(indNames(lausanne))
+lausanne.highcalls <- lausanne[,locNames(lausanne)[na < 0.25]]
+
+snps.both <- intersect(locNames(floragenex.highcalls),locNames(lausanne.highcalls))
+limnogen.both <- limnogen[,locNames(limnogen) %in% snps.both]
+
+## extracting genotype matrix
+limno_alleles <- t(as.matrix(limnogen.both))
+
+dim(limno_alleles)
+head(colnames(limno_alleles)) ## to make sure that the names look good
+```
+
+Now that I have a workable matrix of genotypes, I will calculate missingness and heterozygosity for each of the individuals. I'm going to remove any individuals with >90% missing data from subsequent analyses.
+
+```{r filter-indv}
+### calculate missing data for these snps, per indv ###
+missingness <- data.frame(New_ID=colnames(limno_alleles),
+                          Missing=numeric(ncol(limno_alleles)),
+                          Heterozygosity=numeric(ncol(limno_alleles)))
+
+for (i in 1:ncol(limno_alleles)){
+  missingness[i,2] <- round((length(which(is.na(limno_alleles[,i]))))/length(rownames(limno_alleles)),3)
+  missingness[i,3] <- round((length(which((limno_alleles[,i] == 1))))/(length((limno_alleles[,i]))-length(which(is.na(limno_alleles[,i])))),3)
+}
+
+par(mfrow=c(1,2))
+hist(as.numeric(missingness[,3]), 
+     main=paste("Heterozygosity, mean ", round(mean(as.numeric(missingness[,3])),3), sep=""),
+     xlab="Heterozygosity")
+hist(as.numeric(missingness[,2]), 
+     main=paste("Missingness, mean ", round(mean(as.numeric(missingness[,2])),3), sep=""),
+     xlab="% missing data")
+plot(as.numeric(missingness[,2]), 
+     as.numeric(missingness[,3]),
+     xlab="missingness", ylab="heterozygosity")
+
+quantile(as.numeric(missingness[,2]))
+quantile(as.numeric(missingness[,3]))
+
+### check to see whether any indv have high levels of missing data or heterozygosity ###
+lowcov<-as.character(missingness[which(missingness[,2] > 0.5),1])
+lowcov
+highhet <- as.character(missingness[which(missingness[,3] > 0.3),1])
+highhet
+
+### remove those with lots of missing data ###
+to.remove <- match(c(lowcov,"IKO03","KIV17"),
+                   colnames(limno_alleles))
+to.keep <- colnames(limno_alleles)[!(colnames(limno_alleles) %in% 
+                                       c(lowcov,"IKO03","KIV17"))]
+
+limno_alleles_nolowcov <- limno_alleles[,-c(to.remove)]
+attributes(limno_alleles_nolowcov)$dim ## now have 364 indv
+head(colnames(limno_alleles_nolowcov))
+
+# also remove low coverage individuals from genlight object
+limnogen_nolowcov <- gl.keep.ind(limnogen.both,
+                                 ind.list=to.keep,
+                                 recalc=FALSE, mono.rm=T)
+
+# plot new missingness vs heterozygosity
+missingness.nolowcov <- missingness[-c(to.remove),]
+plot(missingness.nolowcov[,2], 
+     missingness.nolowcov[,3],
+     xlab="missingness",ylab="heterozyg")
+```
+
+## Initial PCA
+This data file now contains contains `r ncol(limno_alleles_nolowcov)` individuals. Now, we can do the PCA on these individuals.
+
+```{r pca}
+limno_pca <- do.pca(limno_alleles_nolowcov)
+pcSummary.limno <- summary(limno_pca)
+scree <- plot(limno_pca, type="lines") 
+
+```
+
+```{r pca-info}
+fishinfo <- read.table('../data/dagaa_combined_info_dec2019.csv', 
+                   header=TRUE,stringsAsFactors = FALSE,sep=",")
+
+missingness.nolowcov$New_ID <- as.character(missingness.nolowcov$New_ID)
+fishinfo$New_ID <- as.character(fishinfo$New_ID)
+
+pairedinfoLimno <- left_join(missingness.nolowcov,fishinfo,by="New_ID") 
+head(pairedinfoLimno)
+
+
+## combining fish info with PC results ##
+pcaAll.limno <- data.frame(sample.id = pairedinfoLimno$New_ID,
+                     site = factor(pairedinfoLimno$site,
+                                   levels=c("Kivu","Kilomoni","Lusenda","Kagunga","Kigoma",
+                                            "Kabimba","NorthMahale","SouthMahale","Ikola",
+                                            "Kipili","Kasanga","Mbete","CrocodileIsland")),
+                     country = factor(pairedinfoLimno$country),
+                     library = factor(pairedinfoLimno$library),
+                     lab = factor(pairedinfoLimno$lab),
+                     sex = factor(pairedinfoLimno$new_sex),
+                     year = factor(pairedinfoLimno$sampling.year),
+                     preservation = factor(pairedinfoLimno$preservation),
+                     missing = (pairedinfoLimno$Missing.x),
+                     heterozyg = (pairedinfoLimno$Heterozygosity.x),
+                     EV1 = limno_pca$x[,1],    # the first eigenvector
+                     EV2 = limno_pca$x[,2],    # the second eigenvector
+                     EV3 = limno_pca$x[,3],    # the third eigenvector
+                     EV4 = limno_pca$x[,4],
+                     EV5 = limno_pca$x[,5],
+                     stringsAsFactors = FALSE)
+```
+
+And now plotting this PCA.
+
+```{r pca-plot}
+colors<-rainbow(13,start=0, end=0.9,alpha = 0.6)
+colors2<-c("#8DD3C7","#BEBADA","#FB8072","#80B1D3",
+           "#B3DE69","#FCCDE5","#D9D9D9","#BC80BD","#CCEBC5","#FFED6F")
+colors.mt<-c("#FFFFFF","#8DD3C7","#BEBADA","#FB8072","#80B1D3",
+          "#B3DE69","#FCCDE5","#D9D9D9","#BC80BD","#CCEBC5","#FFED6F")
+colors.vir.limno <- viridis(5)[1:2]
+colors.vir <- plasma(13)
+shapes<-c(0,1,2,3)
+
+## checking for library effects
+par(oma=c(1,1,1,2), xpd=TRUE, mar=c(5.1, 4.1, 4.1, 8.1),pin=c(3,3),mfrow=c(1,2))
+plot(pcaAll.limno$EV1, pcaAll.limno$EV2, pch=21, cex=2, lwd=2, 
+     bg=scales::alpha(colors2[pcaAll.limno$lab],0.6),col=colors2[pcaAll.limno$lab],
+     xlab=paste("PC1 (", round(pcSummary.limno$importance[2,1]*100, 1), "%)", sep=""),
+     ylab=paste("PC2 (", round(pcSummary.limno$importance[2,2]*100, 1), "%)", sep=""),
+     main="Limnothrissa PCA, colored by sequencing facility")
+plot(pcaAll.limno$EV2, pcaAll.limno$EV3, pch=21, cex=2, lwd=2, 
+     bg=scales::alpha(colors2[pcaAll.limno$lab],0.6),col=colors2[pcaAll.limno$lab],
+     xlab=paste("PC2 (", round(pcSummary.limno$importance[2,2]*100, 1), "%)", sep=""),
+     ylab=paste("PC3 (", round(pcSummary.limno$importance[2,3]*100, 1), "%)", sep=""))
+
+## now, plotting by sampling site
+plot.new()
+par(mar=c(6,6,1,4),mfrow=c(1,3),xpd=TRUE, oma=c(2,2,1,2))
+# PC 1 vs 2
+plot(pcaAll.limno$EV1, pcaAll.limno$EV2, pch=21, cex=4, lwd=2, 
+     bg=scales::alpha(colors.vir[pcaAll.limno$site],0.5),
+     col=colors.vir[pcaAll.limno$site],
+     xlab=paste("PC1 (", round(pcSummary.limno$importance[2,1]*100, 1), "%)", sep=""),
+     ylab=paste("PC2 (", round(pcSummary.limno$importance[2,2]*100, 1), "%)", sep=""),
+     cex.lab=3,cex.axis=2)
+# PC 2 vs 3
+plot(pcaAll.limno$EV2, pcaAll.limno$EV3, pch=21,  cex=4, lwd=2, 
+     bg=scales::alpha(colors.vir[pcaAll.limno$site],0.5),
+     col=colors.vir[pcaAll.limno$site],
+     xlab=paste("PC2 (", round(pcSummary.limno$importance[2,2]*100, 1), "%)", sep=""),
+     ylab=paste("PC3 (", round(pcSummary.limno$importance[2,3]*100, 1), "%)", sep=""),
+     cex.lab=3,cex.axis=2)
+# PC 3 vs 4
+plot(pcaAll.limno$EV3, pcaAll.limno$EV4, pch=21,  cex=4, lwd=2, 
+     bg=scales::alpha(colors.vir[pcaAll.limno$site],0.5), 
+     col=colors.vir[pcaAll.limno$site],
+     xlab=paste("PC3 (", round(pcSummary.limno$importance[2,3]*100, 1), "%)", sep=""),
+     ylab=paste("PC4 (", round(pcSummary.limno$importance[2,4]*100, 1), "%)", sep=""),
+     cex.lab=3,cex.axis=2)
+legend("topright",inset=c(-1,0),
+       legend=levels(pcaAll.limno$site),
+       col=scales::alpha(colors.vir,0.6),
+       border=NULL,pch=19,bty="n", 
+       cex=1, 
+       pt.cex=2, 
+       pt.lwd=2, 
+       horiz=FALSE)
+
+```
+
+Based on these PCA results and clustering positions, I'm going to go ahead and assign a "sex" and "group" to each of the individuals by visually drawing lines between the groups.
+
+```{r new-assignments}
+## assigning new groups
+pcaAll.limno$new_sex <- case_when(pcaAll.limno$EV1 > 0.05 ~ "A",
+                            pcaAll.limno$EV1 < 0 ~ "B",
+                            TRUE ~ "UNK")
+pcaAll.limno$new_grp <- case_when(pcaAll.limno$EV2 < -0.01 ~ "1",
+                            pcaAll.limno$EV2 < 0.02 & pcaAll.limno$EV2 > -0.01 ~ "2",
+                            pcaAll.limno$EV2 > 0.01 ~ "3",
+                            TRUE ~ "UNK")
+pcaAll.limno$new_sex <- as.factor(pcaAll.limno$new_sex)
+pcaAll.limno$new_grp <- as.factor(pcaAll.limno$new_grp)
+
+table(pcaAll.limno$new_grp)
+table(pcaAll.limno$new_sex)
+table(pcaAll.limno$new_grp,pcaAll.limno$new_sex)
+
+pairedinfoLimno$new_grp <- pcaAll.limno$new_grp
+pairedinfoLimno$new_sex <- pcaAll.limno$new_sex
+
+## plot using these colors to make sure that groups look good
+plot.new()
+par(mfrow=c(1,3),pin=c(2,2),mar=c(6,6,1,2))
+plot(pcaAll.limno$EV1, pcaAll.limno$EV2, pch=19, cex=2, lwd=1, 
+     col=scales::alpha(colors[pcaAll.limno$new_grp],0.6),
+     xlab=paste("PC1 (", round(pcSummary.limno$importance[2,1]*100, 1), "%)", sep=""),
+     ylab=paste("PC2 (", round(pcSummary.limno$importance[2,2]*100, 1), "%)", sep=""),
+     cex.lab=2)
+plot(pcaAll.limno$EV2, pcaAll.limno$EV3, pch=19, cex=2, lwd=1, 
+     col=scales::alpha(colors[pcaAll.limno$new_grp],0.6),
+     xlab=paste("PC2 (", round(pcSummary.limno$importance[2,2]*100, 1), "%)", sep=""),
+     ylab=paste("PC3 (", round(pcSummary.limno$importance[2,3]*100, 1), "%)", sep=""),
+     cex.lab=2)
+plot(pcaAll.limno$EV3, pcaAll.limno$EV4, pch=19, cex=2, lwd=1, 
+     col=scales::alpha(colors[pcaAll.limno$new_grp],0.6),
+     xlab=paste("PC3 (", round(pcSummary.limno$importance[2,3]*100, 1), "%)", sep=""),
+     ylab=paste("PC4 (", round(pcSummary.limno$importance[2,4]*100, 1), "%)", sep=""),
+     cex.lab=2)
+
+#write.csv(pcaAll.limno,"pcaAll.limno.csv",col.names=TRUE,row.names=FALSE,quote=FALSE)
+
+```
+
+## Identifying sex loci
+Now, I'm going to get into teasing apart the sex loci by using a DAPC to check which SNPs have high loadings on the differences between males and females.
+
+```{r sex-dapc}
+## removing low coverage and ambiguous individuals
+limnogen_nolowcov <- limnogen.both[!(indNames(limnogen.both) %in% 
+                                       c(lowcov,"IKO03","KIV17"))]
+pairedinfoLimno_nolowcov <- pairedinfoLimno[!(pairedinfoLimno$New_ID %in% 
+                                                c(lowcov,"IKO03","KIV17")),]
+
+pop(limnogen_nolowcov) <- pairedinfoLimno_nolowcov$new_sex
+dapc1 <- dapc(gl.drop.pop(limnogen_nolowcov,"UNK"),
+            pop=pairedinfoLimno_nolowcov$new_sex[pairedinfoLimno_nolowcov$new_sex != "UNK"],
+            n.pca = 20, n.da = 3)
+
+## plot empirical DAPC results ##
+scatter(dapc1, scree.da=TRUE, 
+        bg="white", pch=20, cell=0, 
+        cstar=0, solid=.4, cex=2,clab=0, 
+        leg=FALSE, col=colors.vir.limno)
+
+loadingplot(dapc1$var.contr[,1],
+            cex.lab=0.5,srt=90,byfac=FALSE)
+
+## create null distribution by randomizing sexes ##
+limno.threshold.rand <- randomize.dapc(gl.drop.pop(limnogen_nolowcov,"UNK"),
+                                      pop=pairedinfoLimno_nolowcov$new_sex[pairedinfoLimno_nolowcov$new_sex != "UNK"],
+                                      niter=100, return.all=TRUE, npca=20)
+limno.threshold <- quantile(limno.threshold.rand,c(0.99),na.rm=TRUE)
+
+## plot random and empirical loadings ##
+loadings.limno <- as.data.frame(dapc1$var.contr)
+loadings.limno$type <- "empirical"
+rand.loadings.limno <- as.data.frame(limno.threshold.rand)
+rand.loadings.limno$type <- "random"
+colnames(rand.loadings.limno)[1] <- "LD1"
+
+all.loadings.limno <- rbind(loadings.limno,rand.loadings.limno)
+
+p <- ggplot(all.loadings) +
+  geom_density(aes(x=LD1,group=type,fill=type),alpha=0.5) +
+  #coord_cartesian(ylim=c(0,10000),xlim=c(0,0.0050)) +
+  theme_minimal()+ 
+  scale_fill_manual(values=c("gray20","gray90"),na.value = "grey90")+
+  theme(panel.grid=element_blank(),
+        axis.text=element_text(size=14),
+        axis.title = element_text(size=16)) +
+  geom_vline(xintercept=limno.threshold,linetype="dashed")
+p 
+
+## plot loading plot with this threshold ##
+loadingplot(dapc1$var.contr[,1],
+            threshold=0.025,
+            cex.lab=2,srt=90,
+            byfac=FALSE,main="",
+            xlab="SNP Location",ylab="SNP Loading",
+            cex.axis=1.5)
+abline(h=limno.threshold,lty=2,col="gray20",lwd=2)
+
+## pull out significant loci and plot by scaffold ##
+sex.loci.limno <- data.frame(SNP = locNames(limnogen_nolowcov)[dapc1$var.contr[,1] > limno.threshold],
+                       loading = dapc1$var.contr[dapc1$var.contr[,1] > limno.threshold,])
+
+sex.loci.limno$scaffold <- as.data.frame(do.call(rbind,regmatches(sex.loci.limno$SNP, regexec('([0-9]+)\\_[0-9]',sex.loci.limno$SNP))))[,2]
+sex.loci.limno$pos <- as.data.frame(do.call(rbind,regmatches(sex.loci.limno$SNP, regexec('[0-9]+_([0-9]+)', sex.loci.limno$SNP))))[,2]
+
+par(pin=c(8,2),mar=c(4,2,1,1))
+barplot(sort(table(sex.loci.limno$scaffold),decreasing=TRUE),
+        las=2,
+        xlab="",
+        ylab="number of significant sex loci (limnothrissa)")
+
+sex.chr.limno <- as.character(unique(sex.loci.limno$scaffold))
+
+#write.csv(sex.loci.limno,"limno_sex_loci.csv",quote=FALSE,row.names=FALSE)
+
+## make figure of dapc results
+layout(matrix(c(1,2,3,3), 2, 2, byrow = TRUE))
+par(mar=c(2,2,1,1))
+scatter(dapc1, 
+        scree.da=TRUE, 
+        bg="white", 
+        pch=20, cell=0, cstar=0, 
+        solid=0.4, cex=2,clab=0, leg=FALSE, 
+        col=colors.vir.limno,
+        cex.lab=2, cex.axis=1.5)
+
+loadingplot(dapc1$var.contr[,1],
+            threshold=0.025,
+            cex.lab=2,srt=90,byfac=FALSE,main="",xlab="SNP Location",ylab="SNP Loading")
+abline(h=limno.threshold,lty=2,col="gray20",lwd=2)
+
+barplot(sort(table(sex.loci.limno$scaffold),decreasing=TRUE),
+       las=2,
+       xlab="",
+       ylab="number of significant sex loci")
+```
+
+Here, I am retaining loci with loadings > `r round(limno.threshold, 4)`, which results in a total of `r length(which(dapc1$var.contr[,1] > limno.threshold))` loci identified as "sex loci." The scaffold with the largest number of these loci is `r sex.loci$scaffold[sort(table(sex.loci$scaffold)/2,decreasing=TRUE)[1]]`, and the top five scaffolds are `r head(sort(table(sex.loci$scaffold)/2,decreasing=TRUE))`.
+
+## Identifying inversion loci
+
+Now, I need to remove the sex loci and work with the putative inversion.
+
+```{r inv-dapc}
+## removing sex SNPs
+limnogen_nosex <- limnogen_nolowcov[,which(!(locNames(limnogen_nolowcov) %in% sex.loci.limno$SNP))]
+
+g1 <- as.character(pairedinfoLimno_nolowcov$New_ID[pairedinfoLimno_nolowcov$new_grp == 1])
+g2 <- as.character(pairedinfoLimno_nolowcov$New_ID[pairedinfoLimno_nolowcov$new_grp == 2])
+g3 <- as.character(pairedinfoLimno_nolowcov$New_ID[pairedinfoLimno_nolowcov$new_grp == 3])
+unk <- as.character(pairedinfoLimno_nolowcov$New_ID[pairedinfoLimno_nolowcov$new_grp == "UNK"])
+
+kiv <- as.character(pcaAll.limno$sample.id[pcaAll.limno$site == "Kivu"])
+
+## DAPC -- I will first remove Kivu individuals, and those in the heterozygous group
+## this will give the largest differences between groups 
+limnogen_nokiv <- limnogen_nosex[!(indNames(limnogen_nosex) %in% c(kiv))]
+pairedinfoLimno_nokiv <- pairedinfoLimno_nolowcov[!(pairedinfoLimno_nolowcov$New_ID %in% c(kiv)),]
+
+limnogen_noambig_nokiv <- limnogen_nosex[!(indNames(limnogen_nosex) %in% c(kiv,g2))]
+pairedinfoLimno_noambig_nokiv <- pairedinfoLimno_nolowcov[!(pairedinfoLimno_nolowcov$New_ID %in% c(kiv,g2)),]
+
+pop(limnogen_noambig_nokiv) <- pairedinfoLimno_noambig_nokiv$new_grp
+dapc3 <- dapc(limnogen_noambig_nokiv,
+            pop=pairedinfoLimno_noambig_nokiv$new_grp,
+            n.pca=20, n.da=5)
+ 
+scatter(dapc3, scree.da=FALSE, bg="white", pch=20, cell=2.5, cstar=0, solid=0.4, cex=3,clab=0, leg=FALSE,col=magma(8)[4:6])
+ 
+loadingplot(dapc3$var.contr[,1],threshold=0.1,cex.lab=0.5,srt=90)
+abline(h = limno.threshold, lty=2, lwd=2, col="gray80")
+
+## pulling out loci above the threshold from the null ##
+length(which(dapc3$var.contr[,1] > limno.threshold))
+
+inv.loci <- data.frame(snp = locNames(limnogen_noambig_nokiv)[dapc3$var.contr[,1] > limno.threshold],
+  loading = dapc3$var.contr[dapc3$var.contr[,1] > limno.threshold,])
+
+inv.loci$scaffold <- as.data.frame(do.call(rbind,regmatches(inv.loci$snp, regexec('([0-9]+)\\_[0-9]', inv.loci$snp))))[,2]
+inv.loci$pos <- as.data.frame(do.call(rbind,regmatches(inv.loci$snp, regexec('[0-9]+_([0-9]+)', inv.loci$snp))))[,2]
+
+## plotting significant SNPs by scaffold ##
+barplot(sort(table(inv.loci$scaffold),decreasing=TRUE),
+        las=2,
+        xlab="",
+        ylab="number of significant inversion loci")
+
+inv.chr <- as.character(unique(inv.loci$scaffold))
+
+#write.csv(inv.loci,"limno_inversion_loci.csv",quote=FALSE,row.names=FALSE)
+#write.csv(inv.chr,"limno_inversion_chr.csv",quote=FALSE,row.names=FALSE)
+
+## make figure of dapc results ##
+layout(matrix(c(1,2,2), 1, 3, byrow = TRUE))
+
+par(oma=c(3,3,3,1),mar=c(5,5,5,2))
+scatter(dapc3, scree.da=FALSE, 
+        bg="white", pch=20, cell=4, 
+        cstar=0, solid=0.4, cex=4, clab=0, leg=FALSE, 
+        col=magma(8)[4:6],cex.lab=2,cex.axis=1.5)
+par(mar=c(0,8,0.5,2),xpd=FALSE)
+loadingplot(dapc3$var.contr[,1],
+            threshold=0.025,
+            cex.lab=2, srt=90, byfac=FALSE, main="",
+            xlab="SNP Location",ylab="SNP Loading")
+abline(h=limno.threshold, lty=2, col="gray20", lwd=2)
+
+```
+
+With this, we have identified `r length(which(dapc3$var.contr[,1]>limno.threshold))` inversion loci. These loci are predominantly located on scaffold #`r sort(table(inv.loci$scaffold)/2,decreasing=TRUE)[1]`, and the five scaffolds with the most significant loci are `r head(sort(table(inv.loci$scaffold)/2,decreasing=TRUE))`.
+
+### Stats and plots for these loci
+
+Now that we have sex loci and inversion loci identified, let's look at heterozygosity at these loci in the different groups.
+
+```{r heterozygosity, cache=TRUE}
+## pulling only inversion loci
+limnogen_inv <- limnogen_nolowcov[,which(locNames(limnogen_nolowcov) %in% inv.loci$snp)]
+limnogen_sex <- limnogen_nolowcov[,which(locNames(limnogen_nolowcov) %in% sex.loci.limno$SNP)]
+pop(limnogen_sex) <- pcaAll.limno$new_sex
+pop(limnogen_inv) <- pcaAll.limno$new_grp
+
+limnodiv <- gl.Ho(limnogen_nolowcov)
+limnodiv_inv <- gl.Ho(limnogen_inv)
+limnodiv_sex <- gl.Ho(limnogen_sex)
+
+plot(limnodiv, xlab='Locus number',ylab='Observed heterozygosity')
+
+#######################
+## plotting sex loci ##
+#######################
+limnoSexA <- limnogen_nolowcov[pcaAll.limno$new_sex == "A"]
+pop(limnoSexA) <- rep("A",nInd(limnoSexA))
+limnoSexB <- limnogen_nolowcov[pcaAll.limno$new_sex == "B"]
+pop(limnoSexB) <- rep("B",nInd(limnoSexB))
+
+limnogenSexA_sex <- limnoSexA[,which(locNames(limnoSexA) %in% sex.loci.limno$SNP)]
+limnogenSexB_sex <- limnoSexB[,which(locNames(limnoSexB) %in% sex.loci.limno$SNP)]
+
+limnodiv_sexA <- gl.Ho(limnoSexA)
+limnodiv_sexB <- gl.Ho(limnoSexB)
+limnodiv_sexA_sexloci <- gl.Ho(limnogenSexA_sex)
+limnodiv_sexB_sexloci <- gl.Ho(limnogenSexB_sex)
+
+diff <- limnodiv_sexA_sexloci - limnodiv_sexB_sexloci
+
+par(mfrow=c(1,2))
+plot(limnodiv_sexA, 
+     xlab='Locus',ylab='Observed heterozygosity', 
+     main="All loci, colored by group",xaxt='n',
+     pch=19)
+points(limnodiv_sexB, 
+       xlab='Locus',ylab='Observed heterozygosity',
+       col="turquoise",
+       pch=19)
+
+plot(limnodiv_sexA_sexloci, 
+     xlab='Locus',ylab='Observed heterozygosity',
+     ylim=c(0,1), 
+     main="Sex Loci, colored by group",
+     xaxt='n', pch=19)
+axis(1, at=1:length(limnodiv_sexA_sexloci), 
+     labels=row.names(as.data.frame(limnodiv_sexA_sexloci)), 
+     las=2)
+points(limnodiv_sexB_sexloci, 
+       xlab='Locus number',ylab='Observed heterozygosity',
+       col="turquoise",
+       pch=19)
+
+#############################
+## plotting inversion loci ##
+#############################
+
+limnoGrp1 <- limnogen_nokiv[pcaAll.limno$new_grp == 1]
+limnoGrp2 <- limnogen_nokiv[pcaAll.limno$new_grp == 2]
+limnoGrp3 <- limnogen_nokiv[pcaAll.limno$new_grp == 3]
+#limnoGrp4 <- limnogen_nolowcov[pcaAll.limno$new_grp == 4]
+
+limnoGrp1_inv <- limnoGrp1[,which(locNames(limnoGrp1) %in% as.character(inv.loci$snp))]
+limnoGrp2_inv <- limnoGrp2[,which(locNames(limnoGrp2) %in% as.character(inv.loci$snp))]
+limnoGrp3_inv <- limnoGrp3[,which(locNames(limnoGrp3) %in% as.character(inv.loci$snp))]
+#limnoGrp4_inv <- limnoGrp4[,which(locNames(limnoGrp4) %in% as.character(inv.loci$snp))]
+
+limnodiv_Grp1 <- gl.Ho(limnoGrp1)
+limnodiv_Grp2 <- gl.Ho(limnoGrp2)
+limnodiv_Grp3 <- gl.Ho(limnoGrp3)
+#limnodiv_Grp4 <- gl.Ho(limnoGrp4)
+limnodiv_Grp1_invloci <- gl.Ho(limnoGrp1_inv)
+limnodiv_Grp2_invloci <- gl.Ho(limnoGrp2_inv)
+limnodiv_Grp3_invloci <- gl.Ho(limnoGrp3_inv)
+#limnodiv_Grp4_invloci <- gl.Ho(limnoGrp4_inv)
+
+par(mfrow=c(1,2))
+par(mar=c(4,4,4,4),oma=c(3,1,1,1))
+plot(limnodiv_Grp1, 
+     xlab='Locus',ylab='Observed heterozygosity', 
+     main="All loci, colored by group",xaxt='n')
+points(limnodiv_Grp2, 
+       xlab='Locus',ylab='Observed heterozygosity',
+       col="turquoise")
+points(limnodiv_Grp3, 
+       xlab='Locus',ylab='Observed heterozygosity',
+       col="pink")
+#points(limnodiv_Grp4, xlab='Locus',ylab='Observed heterozygosity',col="blue")
+
+plot(limnodiv_Grp1_invloci, 
+     xlab='Locus',ylab='Observed heterozygosity',
+     ylim=c(0,1), 
+     main="Inversion Loci, colored by group", 
+     pch=19, xaxt = "n")
+axis(1, at=1:length(limnodiv_Grp1_invloci), 
+     labels=row.names(as.data.frame(limnodiv_Grp1_invloci)), 
+     las=2)
+points(limnodiv_Grp2_invloci, 
+       xlab='Locus',ylab='Observed heterozygosity',
+       col="turquoise", pch=19)
+points(limnodiv_Grp3_invloci, 
+       xlab='Locus',ylab='Observed heterozygosity',
+       col="pink", pch=19)
+#points(limnodiv_Grp4_invloci, xlab='Locus',ylab='Observed heterozygosity',col="blue", pch=19)
+
+# rm(limnogen)
+# rm(limnogen_inv)
+# rm(limnogen_noambig) 
+# rm(limnogen_nolowcov) 
+# rm(limnogen_nolowcov_nounk) 
+# rm(limnogen_nosex) 
+# rm(limnogen_sex) 
+# rm(limnogenSexA_sex) 
+# rm(limnogenSexB_sex)
+
+## plotting PC vs Ho for sex ##
+sex_geno <- as.matrix(limnogen_sex)
+sex_het<-data.frame(New_ID=row.names(sex_geno),Missing=rep(0,times=length(row.names(sex_geno))),Heterozygosity=rep(0,times=length(row.names(sex_geno))))
+for (i in 1:length(row.names(sex_geno))){
+  sex_het[i,2] <- round((length(which(is.na(sex_geno[i,]))))/length(colnames(sex_geno)),3)
+  sex_het[i,3] <- round((length(which((sex_geno[i,] == 1))))/(length((sex_geno[i,]))-length(which(is.na(sex_geno[i,])))),3)
+}
+
+par(mfrow=c(1,1),pin=c(2,2),mar=c(6,6,1,2))
+plot(pcaAll.limno$EV1, sex_het$Heterozygosity, pch=21, cex=3, lwd=2, bg=scales::alpha(colors.vir.limno[pcaAll.limno$new_sex],0.6), col=colors.vir.limno[pcaAll.limno$new_sex],
+     xlab=paste("PC1 (", round(pcSummary.limno$importance[2,1]*100, 1), "%)", sep=""),
+     ylab=expression("H[obs] at Sex Loci"),
+     cex.lab=2)
+
+### plot PC vs Ho for inversion ##
+inv_geno <- as.matrix(limnogen_inv)
+inv_het<-data.frame(New_ID=row.names(inv_geno),Missing=rep(0,times=length(row.names(inv_geno))),Heterozygosity=rep(0,times=length(row.names(inv_geno))))
+for (i in 1:length(row.names(inv_geno))){
+  inv_het[i,2] <- round((length(which(is.na(inv_geno[i,]))))/length(colnames(inv_geno)),3)
+  inv_het[i,3] <- round((length(which((inv_geno[i,] == 1))))/(length((inv_geno[i,]))-length(which(is.na(inv_geno[i,])))),3)
+}
+
+plot.new()
+par(mfrow=c(1,1),pin=c(2,2),mar=c(6,6,1,2))
+plot(pcaAll.limno$EV2, inv_het$Heterozygosity, 
+     pch=21, cex=3, lwd=2, bg=scales::alpha(magma(8)[4:6][pcaAll.limno$new_grp],0.6), 
+     col=magma(8)[4:6][pcaAll.limno$new_grp],
+     xlab="PC2",
+     ylab=expression("H[obs] at inv Loci"),
+     cex.lab=2,
+     ylim=c(0,1))
+
+```
+
+## Write new VCF file omitting sex & inversion scaffolds, and removing library effects
+
+```{r}
+# keeping only snps in common
+limno_filt <- limno_vcfR@gt[locNames(limnogen) %in% snps.both,]
+limno_vcfR_filt <- limno_vcfR
+limno_vcfR_filt@gt <- limno_filt
+limno_vcfR_filt@fix <- limno_vcfR_filt@fix[locNames(limnogen) %in% snps.both,]
+limno_vcfR_filt
+
+write.vcf(limno_vcfR_filt,file="../data/limno_all_0.5_maf0.01_noLib.vcf.gz")
+
+
+# removing sex and inversion scaffolds, and individuals omitted
+keep <- which(!(limno_vcfR_filt@fix[,1] %in% c(sex.chr.limno,inv.chr)))
+
+limno_filt_noSexInv <- limno_vcfR_filt@gt[keep,-c(to.remove)]
+limno_vcfR_filt_noSexInv <- limno_vcfR_filt
+limno_vcfR_filt_noSexInv@gt <- limno_filt_noSexInv
+limno_vcfR_filt_noSexInv@fix <- limno_vcfR_filt@fix[keep,]
+limno_vcfR_filt_noSexInv # to make sure num ind and SNPs makes sense
+
+write.vcf(limno_vcfR_filt_noSexInv,file="../data/limno_all_0.5_maf0.01_noScaffs.vcf.gz")
+
+```
