@@ -1,0 +1,648 @@
+---
+title: "Sardine additional analyses"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+
+```{r echo=FALSE,include=FALSE}
+source("packages_functions.R")
+```
+
+```{r import-vcf, cache=TRUE, include=FALSE}
+###############################################
+## Importing VCF file and cleaning it up
+## for Limnothrissa
+limno_vcfR<-read.vcfR("../data/limno_all_0.5_maf0.01_noScaffs.recode.vcf")
+limnogen <- vcfR2genlight(limno_vcfR)
+col.names <- unlist(strsplit(indNames(limnogen),"/project/wagnerlab/jrick/dagaa/rad/bamfiles/aln_"))
+col.names.clean <- unlist(strsplit(col.names,".sorted.bam"))
+indNames(limnogen)<-col.names.clean
+
+fishinfo<-read.csv('../data/sardine_all_metadata_clean.csv',
+                   header=TRUE,stringsAsFactors = FALSE)
+pairedinfoLimno <- left_join(data.frame(sample_name=col.names.clean),fishinfo,by="sample_name")
+
+pop(limnogen) <- pairedinfoLimno$sequencing_center
+
+## filtering SNPs found only in one group or the other
+floragenex <- gl.keep.pop(limnogen,
+                          "Floragenex", mono.rm=F)
+floragenex <- gl.recalc.metrics(floragenex)
+floragenex.highcalls <- gl.filter.callrate(floragenex, method="loc", threshold=0.95)
+
+lausanne <- gl.keep.pop(limnogen,
+                        "Lausanne", mono.rm=F)
+lausanne <- gl.recalc.metrics(lausanne)
+lausanne.highcalls <- gl.filter.callrate(lausanne, method="loc", threshold=0.95)
+
+snps.both <- intersect(locNames(floragenex.highcalls),locNames(lausanne.highcalls))
+limnogen.both <- gl.drop.loc(limnogen,locNames(limnogen)[!(locNames(limnogen) %in% snps.both)],v=1)
+
+########################################################3
+## Importing VCF file and cleaning it up, as before
+## for Stolothrissa
+stolo_vcfR<-read.vcfR("../data/stolo_all_0.5_maf0.01_noScaffs.recode.vcf")
+stologen <- vcfR2genlight(stolo_vcfR)
+col.names <- unlist(strsplit(indNames(stologen),"/project/wagnerlab/jrick/dagaa/rad/bamfiles/stolo/aln_"))
+col.names.clean <- as.character(unlist(strsplit(col.names,".sorted.bam")))
+indNames(stologen)<-col.names.clean
+
+pairedinfoStolo <- left_join(data.frame(sample_name=col.names.clean),fishinfo,by="sample_name")
+
+pop(stologen) <- pairedinfoStolo$sequencing_center
+
+## filtering SNPs found only in one group or the other
+floragenex <- gl.keep.pop(stologen,
+                          "Floragenex", mono.rm=F)
+floragenex <- gl.recalc.metrics(floragenex)
+floragenex.highcalls <- gl.filter.callrate(floragenex, method="loc", threshold=0.95)
+
+lausanne <- gl.keep.pop(stologen,
+                        "Lausanne", mono.rm=F)
+lausanne <- gl.recalc.metrics(lausanne)
+lausanne.highcalls <- gl.filter.callrate(lausanne, method="loc", threshold=0.95)
+
+snps.both <- intersect(locNames(floragenex.highcalls),locNames(lausanne.highcalls))
+stologen.both <- stologen[,locNames(stologen) %in% snps.both]
+```
+
+# Limnothrissa
+
+First, I'll look at the groups for Limnothrissa. Here, we'll focus on k=4, which is 3 groups in addition to Kivu.
+
+## Entropy Results
+
+```{r lim-dic, echo=FALSE, out.width = '50%'}
+#knitr::include_graphics("limno_dic_results.png")
+```
+
+```{r message=FALSE, warning=FALSE}
+## Accompanying metadata
+details <- fishinfo
+
+fishinfo <- left_join(data.frame(sample_name=indNames(limnogen)), 
+                      details, by="sample_name",
+                      all.x=T, all.y=F)
+
+```
+
+
+```{r k2, fig.asp=0.6, fig.width=8, echo=FALSE}
+## Extract relevant parameters from .hdf5 format
+data1.q <- h5read("../data/entropy/limno_all_0.5_maf0.01_noScaffs_ldak_noLowCov.k2.rep1.hdf5", "q")
+data2.q <- h5read("../data/entropy/limno_all_0.5_maf0.01_noScaffs_ldak_noLowCov.k2.rep2.hdf5", "q")
+data3.q <- h5read("../data/entropy/limno_all_0.5_maf0.01_noScaffs_ldak_noLowCov.k2.rep3.hdf5", "q")
+
+## Combine chains for each parameter estimated, take mean
+allq <- abind(data2.q[-c(1:2000),,],data3.q[-c(1:2000),,],along=1)
+q <- t(apply(allq, 2:3, mean))
+
+## Get credible intervals and calculate mean
+q.ci <- apply(allq, 2:3, quantile, probs=c(0.025,0.975))
+q.ci.width <- q.ci[2,2,]-q.ci[1,2,]
+print(paste('mean CI: ',mean(q.ci.width)))
+print(paste('median CI: ',median(q.ci.width)))
+
+# stacked barplot
+q.df <- data.frame(names=fishinfo$sample_name,
+                   site=factor(as.character(fishinfo$general_location),
+                               levels=c("Kivu","Kagunga","Kigoma","Kabimba","NorthMahale",
+                                        "SouthMahale","Ikola","Kipili","Kasanga","CrocodileIsland",
+                                        "Mbete")),
+                   sex=factor(fishinfo$genetic_sex),
+                   length=fishinfo$standard_length_mm,
+                   q1=q[,1],q2=q[,2])
+q.long <- gather(q.df,group,value,q1,q2)
+
+ggplot(q.long, aes(fill=group, y=value, x=names)) + 
+  geom_bar(position="stack", stat="identity", width=1) +
+  facet_grid(~site,drop=TRUE,space="free",scales="free_x",shrink=TRUE, switch="x") +
+  ggtitle("limnothrissa, k=2") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        panel.background = element_blank(),
+        strip.text.x = element_text(angle=90),
+        legend.position="top",
+        plot.title = element_text(size=20)) 
+```
+
+```{r k3, fig.asp=0.6, fig.width=8, echo=FALSE}
+## Extract relevant parameters from .hdf5 format
+data1.q <- h5read("../data/entropy/limno_all_0.5_maf0.01_noScaffs_ldak_noLowCov.k3.rep1.hdf5", "q")
+data2.q <- h5read("../data/entropy/limno_all_0.5_maf0.01_noScaffs_ldak_noLowCov.k3.rep2.hdf5", "q")
+data3.q <- h5read("../data/entropy/limno_all_0.5_maf0.01_noScaffs_ldak_noLowCov.k3.rep3.hdf5", "q")
+
+## Combine chains for each parameter estimated, take mean
+allq <- abind(data1.q[-c(1:2000),,],data2.q[-c(1:2000),,],data3.q[-c(1:2000),,],along=1)
+q <- t(apply(allq, 2:3, mean))
+
+## Get credible intervals and calculate mean
+q.ci <- apply(allq, 2:3, quantile, probs=c(0.025,0.975))
+q.ci.width <- q.ci[2,2,]-q.ci[1,2,]
+print(paste('mean CI: ',mean(q.ci.width)))
+print(paste('median CI: ',median(q.ci.width)))
+
+# stacked barplot
+q.df <- data.frame(names=fishinfo$sample_name,
+                   site=factor(as.character(fishinfo$general_location), 
+                               levels=c("Kivu","Kagunga","Kigoma","Kabimba","NorthMahale",
+                                        "SouthMahale","Ikola","Kipili","Kasanga","CrocodileIsland",
+                                        "Mbete")),
+                   sex=factor(fishinfo$genetic_sex),
+                   length=fishinfo$standard_length_mm,
+                   q1=q[,1],q2=q[,2],q3=q[,3])
+q.long <- gather(q.df,group,value,q1,q2,q3)
+
+ggplot(q.long, aes(fill=group, y=value, x=names)) + 
+  geom_bar(position="stack", stat="identity", width=1) +
+  facet_grid(~site,drop=TRUE,space="free",scales="free_x",shrink=TRUE, switch="x") +
+  ggtitle("limnothrissa, k=3") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        panel.background = element_blank(),
+        strip.text.x = element_text(angle=90),
+        legend.position="top",
+        plot.title = element_text(size=20)) 
+
+```
+
+```{r k4, fig.asp=0.6, fig.width=8, echo=FALSE}
+## Extract relevant parameters from .hdf5 format
+data1.q <- h5read("../data/entropy/limno_all_0.5_maf0.01_noScaffs_ldak_noLowCov.k4.rep1.hdf5", "q")
+data2.q <- h5read("../data/entropy/limno_all_0.5_maf0.01_noScaffs_ldak_noLowCov.k4.rep2.hdf5", "q")
+data3.q <- h5read("../data/entropy/limno_all_0.5_maf0.01_noScaffs_ldak_noLowCov.k4.rep3.hdf5", "q")
+
+## Combine chains for each parameter estimated, take mean
+allq <- abind(data1.q[-c(1:2000),,],data2.q[-c(1:2000),,],data3.q[-c(1:2000),,],along=1)
+q <- t(apply(allq, 2:3, mean))
+
+## Get credible intervals and calculate mean
+q.ci <- apply(allq, 2:3, quantile, probs=c(0.025,0.975))
+q.ci.width <- q.ci[2,2,]-q.ci[1,2,]
+print(paste('mean CI: ',mean(q.ci.width)))
+print(paste('median CI: ',median(q.ci.width)))
+
+# stacked barplot
+q.df <- data.frame(names=fishinfo$sample_name,
+                   site=factor(as.character(fishinfo2$general_location), 
+                               levels=c("Kivu","Kagunga","Kigoma","Kabimba","NorthMahale",
+                                        "SouthMahale","Ikola","Kipili","Kasanga","CrocodileIsland",
+                                        "Mbete")),
+                   sex=factor(fishinfo$genetic_sex),
+                   length=fishinfo$standard_length_mm,
+                   q1=q[,1],q2=q[,2],q3=q[,3],q4=q[,4])
+q.long <- gather(q.df,group,value,q1,q2,q3,q4)
+
+ggplot(q.long, aes(fill=group, y=value, x=names)) + 
+  geom_bar(position="stack", stat="identity", width=1) +
+  facet_grid(~site,drop=TRUE,space="free",scales="free_x",shrink=TRUE, switch="x") +
+  ggtitle("limnothrissa, k=4") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        panel.background = element_blank(),
+        strip.text.x = element_text(angle=90),
+        legend.position="top",
+        plot.title = element_text(size=20))
+
+```
+
+## ANOVA
+Now that we have group assignment probabilities, we'll work with the k=4 results to look at whether there is an association between these groups and (1) sampling site, or (2) inversion group.
+
+### By sampling site
+```{r fig.asp=0.8}
+# visualizing group membership
+ggboxplot(q.df.adm, x="site",y=c("q1","q2","q3"), combine=TRUE,
+          fill="site", ylab="group assignment probability", xlab="sampling site",nrow=1) + rotate_x_text(angle=45)
+```
+
+```{r results='hold'}
+# ANOVA for each of the three groups
+# omitting Kivu and Mbete (only 1 sample) and Kabimba (only 2 samples)
+limno.k4.aov.q1 <- aov(q1 ~ site, data=q.df.adm[!(q.df.adm$site %in% c("Kivu","Mbete","Kabimba")),])
+limno.k4.aov.q2 <- aov(q2 ~ site, data=q.df.adm[!(q.df.adm$site %in% c("Kivu","Mbete","Kabimba")),])
+limno.k4.aov.q3 <- aov(q3 ~ site, data=q.df.adm[!(q.df.adm$site %in% c("Kivu","Mbete","Kabimba")),])
+
+print("ANOVA for q1")
+summary(limno.k4.aov.q1)
+print("ANOVA for q2")
+summary(limno.k4.aov.q2)
+print("ANOVA for q3")
+summary(limno.k4.aov.q3)
+
+# checking for homogeneity of variances
+# car::leveneTest(q1 ~ site, data=q.df[!(q.df$site %in% c("Kivu","Mbete")),])
+# car::leveneTest(q2 ~ site, data=q.df[!(q.df$site %in% c("Kivu","Mbete")),])
+# car::leveneTest(q3 ~ site, data=q.df[!(q.df$site %in% c("Kivu","Mbete")),])
+
+# trying a kruskal-wallis test, just to double-check
+# kruskal.test(q1 ~ site, data=q.df[!(q.df$site %in% c("Kivu","Mbete")),])
+# kruskal.test(q2 ~ site, data=q.df[!(q.df$site %in% c("Kivu","Mbete")),])
+# kruskal.test(q3 ~ site, data=q.df[!(q.df$site %in% c("Kivu","Mbete")),])
+
+# pairwise.wilcox.test(q.df$q1[!(q.df$site %in% c("Kivu","Mbete"))], q.df$site[!(q.df$site %in% c("Kivu","Mbete"))],p.adjust.method = "BH")
+
+```
+
+Two of the three of the ANOVAs are significant after removing Kivu, Mbete, and Kabimba, suggesting that group membership may be influenced by sampling site.
+
+### By inversion group
+```{r message=FALSE}
+# visualizing group membership
+pcaAll.limno <- read.csv("pcaAll.limno.csv")
+
+q.df <- q.df[!(q.df$names %in% c("KAS33","KIP39")),]
+limnogen_entropy <- gl.keep.ind(limnogen.both,q.df$names,mono.rm=T)
+limnogen_entropy@pop <- as.factor(pcaAll.limno$new_grp[pcaAll.limno$sample.id %in%
+                                                         limnogen_entropy@ind.names])
+q.df$inv.grp <- limnogen_entropy@pop
+
+ggboxplot(q.df, x="inv.grp",y=c("q1","q2","q3","q4"), combine=TRUE,
+          color="inv.grp", ylab="group assignment probability", xlab="inversion group") +
+  rotate_x_text(angle=45)
+
+# entropy plot by inversion group
+q.long <- gather(q.df,group,value,q1,q2,q3,q4)
+
+ggplot(q.long, aes(fill=group, y=value, x=names)) + 
+  geom_bar(position="stack", stat="identity", width=1) +
+  facet_grid(~inv.grp,drop=TRUE,space="free",scales="free_x",shrink=TRUE, switch="x") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        panel.background = element_blank(),
+        #strip.text.x = element_text(angle=90),
+        legend.position="top") 
+```
+
+```{r results='hold'}
+# ANOVA for each of the three groups
+# again, omitting Kivu and Mbete
+limno.k4.aov.q1 <- aov(q1 ~ inv.grp, data=q.df[!(q.df$site %in% c("Kivu")),])
+limno.k4.aov.q2 <- aov(q2 ~ inv.grp, data=q.df[!(q.df$site %in% c("Kivu")),])
+limno.k4.aov.q3 <- aov(q3 ~ inv.grp, data=q.df[!(q.df$site %in% c("Kivu")),])
+
+print("ANOVA for q1")
+summary(limno.k4.aov.q1)
+print("ANOVA for q2")
+summary(limno.k4.aov.q2)
+print("ANOVA for q3")
+summary(limno.k4.aov.q3)
+
+```
+
+All three of these ANOVAs are not significant, suggesting that group membership probability is not associated with inversion group. This suggests that this additional structure is independent of the original inversion that we identified.
+
+## Analysis by length
+We're also interested in whether these three groups that we find may be indicative of segregation by spawning time. As one way of looking at this, we can look at whether size has any association with which group an individual belongs to. As a first pass, it looks like fish of similar sizes are distributed throughout the entropy groups (for the fish that we have measurements for).
+
+```{r}
+# group assignment at k=4
+q.df$k4.groups <- case_when(
+  q.df$q1 > 0.6 ~ "g1",
+  q.df$q2 > 0.6 ~ "g2",
+  q.df$q3 > 0.6 ~ "g3",
+  q.df$q4 > 0.6 ~ "g4",
+  TRUE ~ "none"
+)
+
+# plot of length vs entropy group
+ggboxplot(q.df[!is.na(q.df$length) & q.df$k4.groups != "none",], 
+          x="k4.groups",y="length",
+          fill="k4.groups", palette=colors.vir) 
+```
+
+While there is some difference between groups in length, I don't think that we can conclude much from these differences, as they do not appear to be systematic.
+
+## DAPC and FST between groups
+To figure out how divergent the groups are, and how many SNPs are contributing to these differences between sites, I'll calculate FST and run a DAPC between groups 1 and 3 (the non-Kivu groups).
+
+### Reich FST between groups
+```{r results='asis',warning=FALSE,message=FALSE}
+limnogen_entropy@pop <- as.factor(q.df$k3.groups)
+limno.k3.fst <- reich.fst(gl.drop.pop(limnogen_entropy,"none"), 
+                          bootstrap=100, plot=TRUE, verbose=TRUE)
+knitr::kable(limno.k3.fst$fsts)
+mean(limno.k3.fst$fsts,na.rm=T)
+mean(limno.k3.fst$fsts[c(1,3),c(1,3)],na.rm=T)
+```
+
+Here, we can see that the groups other than Kivu have a mean Reich FST of `r round(mean(limno.k4.fst[1:3,1:2],na.rm=T),5)`, which is similar to the low values that we observed between sites (see Table 2 & 3 in the manuscript figures).
+
+### PCA to visualize differences
+```{r cache=TRUE, message=FALSE, warning=FALSE}
+# removing kivu
+limnogen_entropy.nokiv <- gl.drop.pop(limnogen_entropy,c("g4","none"))
+
+# first, what does a PCA look like?
+limno.k4.pca <- glPca(limnogen_entropy.nokiv, nf=60)
+plot(limno.k4.pca$scores[,1], limno.k4.pca$scores[,2],
+      cex=2, pch=20, col=colors.vir[c(1,3,5)][limnogen_entropy.nokiv$pop],
+      xlab="Principal Component 1",
+      ylab="Principal Component 2",
+      main="PCA on Limno data, colored by entropy group (k=4, without Kivu)")
+legend("topleft",
+      legend=unique(limnogen_entropy.nokiv$pop),
+      pch=20,
+      col=colors.vir[c(1,3,5)])
+```
+
+### DAPC between non-Kivu groups
+Now, we'll use DAPC to see how many SNPs contribute to the differences between groups.
+
+```{r echo=TRUE, fig.width=10, message=FALSE, warning=FALSE, cache=TRUE}
+### DAPC optimization for number of axes to retain
+limno.mat <- as.matrix(limnogen_entropy.nokiv)
+limno.mat.noNA <- gtools::na.replace(limno.mat, mean, na.rm=T)
+limno.xval <- xvalDapc(limno.mat.noNA,grp=pop(limnogen_entropy.nokiv),
+                       n.da=3,xval.plot=FALSE,training.set=0.9)
+limno.xval[2:6] # number of PCs to achieve lowest MSE and highest success
+
+dapc.limno.k4 <- dapc(limnogen_entropy.nokiv,
+            n.pca = as.integer(limno.xval[6][[1]]), n.da = 3)
+
+### DAPC randomization to determine loadings threshold
+limno.threshold <- randomize.dapc(limnogen_entropy.nokiv,
+               pop=pop(limnogen_entropy.nokiv),
+               npca=as.integer(limno.xval[6][[1]]),
+               verbose=FALSE)
+
+layout(matrix(c(1,2,2,2), nrow = 1, ncol = 4, byrow = TRUE))
+scatter(dapc.limno.k4, scree.da=TRUE, 
+        bg="white", pch=20, cell=0, 
+        cstar=0, solid=0.4, cex=2, clab=0, 
+        leg=TRUE, col=colors.vir)
+
+loadingplot(dapc.limno.k4$var.contr[,1],
+            cex.lab=0.5,srt=90,byfac=FALSE,
+            xlab="SNP location", main="", threshold=limno.threshold)
+abline(h=0.005, lty=2)
+
+```
+
+From this, it looks like there is really only one main region (containing `r sum(dapc.limno.k4$var.cont[,1] > 0.005)` SNPs on scaffold `r unique(limnogen_entropy.nokiv@chromosome[dapc.limno.k4$var.cont[,1] > 0.005])` at `r limnogen_entropy.nokiv@position[dapc.limno.k4$var.cont[,1] > 0.005]`) contributing the most to the differences between groups, which suggests that it is a small region of the genome, which is likely why we do not see these groups popping out on our PCA plots. However, there are an additional `r sum(dapc.limno.k4$var.cont[,1] > limno.threshold)` SNPs that are significant using the 99% quantile cutoff (`r round(limno.threshold,4)`; dashed line in figure) that we have used with our other DAPC analyses.
+
+```{r message=FALSE,warning=FALSE,cache=TRUE}
+# now, what does the DAPC look like if we remove scaffold 1392?
+limnogen_entropy.nokiv.no1392 <-  gl.drop.loc(limnogen_entropy.nokiv,
+                            limnogen_entropy.nokiv@loc.names[dapc.limno.k4$var.contr[,1] > 0.005])
+
+### DAPC optimization
+limno.mat <- as.matrix(limnogen_entropy.nokiv.no1392)
+limno.mat.noNA <- gtools::na.replace(limno.mat, mean, na.rm=T)
+limno.xval <- xvalDapc(limno.mat.noNA,grp=pop(limnogen_entropy.nokiv),
+                       n.da=3,xval.plot=FALSE,training.set=0.9)
+limno.xval[2:6]
+
+dapc.limno.k4.no1392 <- dapc(limnogen_entropy.nokiv.no1392,
+            n.pca = as.integer(limno.xval[6][[1]]), n.da = 3)
+
+layout(matrix(c(1,2,2,2), nrow = 1, ncol = 4, byrow = TRUE))
+scatter(dapc.limno.k4.no1392, scree.da=TRUE, 
+        bg="white", pch=20, cell=0, 
+        cstar=0, solid=0.4, cex=2, clab=0, 
+        leg=FALSE, col=colors.vir)
+
+loadingplot(dapc.limno.k4.no1392$var.contr[,1],
+            cex.lab=0.5,srt=90,byfac=FALSE,
+            xlab="SNP location", main="", threshold=limno.threshold)
+```
+
+Now, the plot looks more like genome-wide divergence, with `r nrow(dapc.limno.k4.no1392$var.contr[dapc.limno.k4.no1392$var.contr[,1] > limno.threshold,])` SNPs that stand out as contributing to differences between these groups in Limnothrissa, and these are scattered across scaffolds. These groups still have a mean Reich FST of `r round(mean(reich.fst(limnogen_entropy.nokiv.no1392,verbose=FALSE),na.rm=T),5)`.
+
+# Stolothrissa
+Now, we'll move on to looking at Stolothrissa. Here, we'll be focusing on the groups for K=3, since Stolothrissa doesn't have a Kivu group.
+
+```{r message=FALSE}
+## Accompanying metadata
+fishinfo <- left_join(data.frame(sample_name=indNames(stologen.both)), details, 
+                      by.x="sample_name", by.y="sample_name",
+                      all.x=T, all.y=F)
+```
+
+## Entropy Results
+
+```{r sto-dic, echo=FALSE, out.width = '50%'}
+knitr::include_graphics("stolo_dic_results.png")
+```
+
+```{r fig.asp=0.6, fig.width=8, echo=FALSE}
+## Extract relevant parameters from .hdf5 format
+data1.q <- h5read("../data/entropy/stolo_all_0.5_maf0.01_noScaffs_ldak.k2.rep1.hdf5", "q")
+data2.q <- h5read("../data/entropy/stolo_all_0.5_maf0.01_noScaffs_ldak.k2.rep1.hdf5", "q")
+data3.q <- h5read("../data/entropy/stolo_all_0.5_maf0.01_noScaffs_ldak.k2.rep1.hdf5", "q")
+
+## Combine chains for each parameter estimated, take mean
+allq <- abind(data1.q[-c(1:2000),,],data2.q[-c(1:2000),,],data3.q[-c(1:2000),,],along=1)
+q <- t(apply(allq, 2:3, mean))
+
+## Get credible intervals and calculate mean
+q.ci <- apply(allq, 2:3, quantile, probs=c(0.025,0.975))
+q.ci.width <- q.ci[2,2,]-q.ci[1,2,]
+print(paste('mean CI: ',mean(q.ci.width)))
+print(paste('median CI: ',median(q.ci.width)))
+
+# stacked barplot
+q.df <- data.frame(names=fishinfo$New_ID,
+                   site=factor(as.character(fishinfo$general_location), 
+                               levels=c("Kilomoni","Lusenda","Kagunga","Kigoma","Kabimba","NorthMahale",
+                                        "SouthMahale","Ikola","Kipili","Kasanga","CrocodileIsland",
+                                        "Mbete","UNK")),
+                   sex=factor(fishinfo$genetic_sex),
+                   year=fishinfo$collection_year,
+                   lab=fishinfo$sequencing_center,
+                   library=fishinfo$library,
+                   length=fishinfo$standard_length_mm,
+                   q1=q[,1],q2=q[,2])
+q.long <- gather(q.df,group,value,q1,q2)
+
+ggplot(q.long, aes(fill=group, y=value, x=names)) + 
+  geom_bar(position="stack", stat="identity", width=1) +
+  facet_grid(~site,drop=TRUE,space="free",scales="free_x",shrink=TRUE, switch="x") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        panel.background = element_blank(),
+        strip.text.x = element_text(angle=90),
+        legend.position="top") 
+```
+
+```{r fig.asp=0.6, fig.width=8, echo=FALSE}
+## Extract relevant parameters from .hdf5 format
+data1.q <- h5read("../data/entropy/stolo_all_0.5_maf0.01_noScaffs_ldak.k3.rep1.hdf5", "q")
+data2.q <- h5read("../data/entropy/stolo_all_0.5_maf0.01_noScaffs_ldak.k3.rep2.hdf5", "q")
+data3.q <- h5read("../data/entropy/stolo_all_0.5_maf0.01_noScaffs_ldak.k3.rep3.hdf5", "q")
+
+## Combine chains for each parameter estimated, take mean
+allq <- abind(data1.q[-c(1:2000),,],data2.q[-c(1:2000),,],data3.q[-c(1:2000),,],along=1)
+q <- t(apply(allq, 2:3, mean))
+
+## Get credible intervals and calculate mean
+q.ci <- apply(allq, 2:3, quantile, probs=c(0.025,0.975))
+q.ci.width <- q.ci[2,2,]-q.ci[1,2,]
+print(paste('mean CI: ',mean(q.ci.width)))
+print(paste('median CI: ',median(q.ci.width)))
+
+# stacked barplot
+q.df <- data.frame(names=fishinfo$New_ID,
+                   site=factor(as.character(fishinfo$general_location), 
+                               levels=c("Kilomoni","Lusenda","Kagunga","Kigoma","Kabimba","NorthMahale",
+                                        "SouthMahale","Ikola","Kipili","Kasanga","CrocodileIsland",
+                                        "Mbete","UNK")),
+                   sex=factor(fishinfo$genetic_sex),
+                   year=fishinfo$collection_year,
+                   lab=fishinfo$sequencing_center,
+                   library=fishinfo$library,
+                   length=fishinfo$standard_length_mm,
+                   q1=q[,1],q2=q[,2],q3=q[,3])
+q.long <- gather(q.df,group,value,q1,q2,q3)
+
+ggplot(q.long, aes(fill=group, y=value, x=names)) + 
+  geom_bar(position="stack", stat="identity", width=1) +
+  facet_grid(~site,drop=TRUE,space="free",scales="free_x",shrink=TRUE, switch="x") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        panel.background = element_blank(),
+        strip.text.x = element_text(angle=90),
+        legend.position="top") 
+
+```
+
+## ANOVA
+Now that we have group assignment probabilities, we'll look at whether there is an association between these groups and sampling site.
+
+### By sampling site, year, sequencing facility
+```{r fig.asp=0.7}
+#group assignment
+q.df$k3.groups <- case_when(
+  q.df$q1 > 0.6 ~ "g1",
+  q.df$q2 > 0.6 ~ "g2",
+  q.df$q3 > 0.6 ~ "g3",
+  TRUE ~ "none"
+)
+
+# visualizing group membership by site and year
+ggboxplot(q.df.adm[q.df.adm$site != "UNK",], 
+          x="site",y=c("q1","q2"), 
+          combine=TRUE,
+          color="site", 
+          ylab="group assignment probability", 
+          xlab="sampling site") +
+    rotate_x_text(angle=45)
+
+ggboxplot(q.df, x="year",y=c("q1","q2","q3"), 
+          combine=TRUE,
+          color="year", 
+          ylab="group assignment probability", 
+          xlab="sampling site") +
+    rotate_x_text(angle=45)
+
+ggboxplot(q.df[q.df$library != "UNK",], 
+          x="library",y=c("q1","q2","q3"), 
+          combine=TRUE,
+          color="library", 
+          ylab="group assignment probability", 
+          xlab="sampling site") +
+    rotate_x_text(angle=45)
+
+# plot of length vs entropy group
+ggboxplot(q.df[!is.na(q.df$length) & q.df$k3.groups != "none",], 
+          x="k3.groups",y="length",
+          fill="k3.groups", palette=colors.vir)
+```
+
+From these plots, it looks like group membership does correspond to site and year sampled, and potentially is structured by length as well, although it is difficult to tell from the plot whether these differences are significant or not. To test each of these, we'll conduct an ANOVA.
+
+```{r results='hold'}
+# ANOVA for each of the three groups
+stolo.k3.aov.q1 <- aov(q1 ~ site, data=q.df.adm[q.df.adm$site != "UNK",])
+stolo.k3.aov.q2 <- aov(q2 ~ site, data=q.df.adm[q.df.adm$site != "UNK",])
+stolo.k3.aov.q3 <- aov(q3 ~ site, data=q.df.adm[q.df.adm$site != "UNK",])
+
+print("ANOVA for q1")
+summary(stolo.k3.aov.q1)
+print("ANOVA for q2")
+summary(stolo.k3.aov.q2)
+print("ANOVA for q3")
+summary(stolo.k3.aov.q3)
+
+```
+
+These ANOVAs are significant for all three groups, suggesting that there may be an association between group membership and sampling site.
+
+## DAPC and FST between groups
+To figure out how divergent the groups are, and how many SNPs are contributing to these differences between sites, I'll run a DAPC between groups 1 and 3 (the non-Kivu groups).
+
+### Reich FST between groups
+```{r results='asis',warning=FALSE,message=FALSE}
+stologen_entropy <- gl.keep.ind(stologen.both,q.df$names,mono.rm=F)
+stologen_entropy@pop <- as.factor(q.df$k3.groups)
+
+stolo.k3.fst <- reich.fst(gl.drop.pop(stologen_entropy,"none"), 
+                          bootstrap=100, plot=TRUE, verbose=TRUE)
+knitr::kable(stolo.k3.fst$fsts)
+mean(stolo.k3.fst$fsts,na.rm=T)
+```
+
+The mean Reich FST between these groups is `r round(mean(stolo.k3.fst[-4,-4],na.rm=T),5)`, which is very similar to the mean FST between the Limnothrissa groups.
+
+### PCA to visualize differences
+```{r cache=TRUE, message=FALSE}
+# remove individuals with no group assignment
+stologen_entropy.noUnk <- gl.drop.pop(stologen_entropy,"none")
+
+# first, what does a PCA look like?
+stolo.k3.glpca <- glPca(stologen_entropy.noUnk, nf=80)
+plot(stolo.k3.glpca$scores[,1], stolo.k3.glpca$scores[,2],
+      cex=2, pch=20, col=colors.vir[3:6][stologen_entropy.noUnk$pop],
+      xlab="Principal Component 1",
+      ylab="Principal Component 2",
+      main="PCA on Stolo data, colored by entropy group (k=4)")
+legend("topleft",
+      legend=unique(stologen_entropy.noUnk$pop),
+      pch=20,
+      col=colors.vir[3:6])
+```
+
+
+### DAPC between groups
+Now, we'll use DAPC to see how many SNPs contribute to the differences between groups.
+
+```{r echo=TRUE, fig.width=10, cache=TRUE, message=FALSE}
+### DAPC optimization for number of axes to retain
+stolo.mat <- as.matrix(stologen_entropy.noUnk)
+stolo.mat.noNA <- gtools::na.replace(stolo.mat, mean, na.rm=T)
+stolo.xval <- xvalDapc(stolo.mat.noNA,
+                       grp=pop(stologen_entropy.noUnk),
+                       n.da=3,xval.plot=FALSE,training.set=0.9)
+stolo.xval[2:6] # number of PCs to achieve lowest MSE and highest success
+
+dapc.stolo.k3 <- dapc(stologen_entropy.noUnk,
+            n.pca = as.integer(stolo.xval[6][[1]]), n.da = 3)
+
+### DAPC randomization to determine loadings threshold
+stolo.threshold <- randomize.dapc(stologen_entropy.noUnk,
+               pop=pop(stologen_entropy.noUnk),
+               npca=as.integer(stolo.xval[6][[1]]),
+               verbose=FALSE)
+
+layout(matrix(c(1,2,2,2), nrow = 1, ncol = 4, byrow = TRUE))
+scatter.dapc(dapc.stolo.k3, scree.da=FALSE, 
+        bg="white", pch=20, cell=0, 
+        cstar=0, solid=0.4, cex=2, clab=0, 
+        leg=TRUE, col=colors.vir[3:6])
+
+loadingplot(dapc.stolo.k3$var.contr[,1],
+            cex.lab=0.5,srt=90,byfac=FALSE,
+            xlab="SNP location", main="", threshold=stolo.threshold)
+
+```
+
+From this, it looks like there are many SNPs contributing to these differences, scattered across scaffolds throughout the genome. In total, we have `r nrow(dapc.stolo.k3$var.contr[dapc.stolo.k3$var.contr[,1] > stolo.threshold,])` SNPs that stand out as contributing to differences between these groups in Stolothrissa. This suggests that it truly is showing genome-wide differentation between these groups.

@@ -1,0 +1,403 @@
+---
+title: "Stolothrissa PCA Things"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,warning=FALSE,message=FALSE)
+```
+
+
+First, I'll load the packages necessary and define the PCA function.
+
+```{r}
+source("packages_functions.R")
+```
+
+## Importing the SNP data
+Now, I'll import the data that I want to use. For this, I'm working with the dataset created with the following filters: missing data allowed = 50%, MAF cutoff of 0.01.
+
+```{r message=FALSE, import-data}
+stolo_vcfR<-read.vcfR("../data/new/stolo_all_0.5_maf0.01.recode.vcf")
+```
+
+## Cleaning up the data
+I now need to convert the genotypes (encoded as ./., 0/0, 0/1, 1/1) into genotype values (0,1,2). I'm also going to clean up the individual IDs and remove library effects (i.e. SNPs with genotype calls in only one library or the another) while doing this.
+
+```{r message=FALSE, clean-data}
+stologen <- vcfR2genlight(stolo_vcfR)
+col.names <- unlist(strsplit(indNames(stologen),"/project/wagnerlab/jrick/dagaa/rad/bamfiles/stolo/aln_"))
+col.names.clean <- as.character(unlist(strsplit(col.names,".sorted.bam")))
+indNames(stologen) <- col.names.clean
+
+fishinfo<-read.csv('../data/sardine_all_metadata_clean.csv',
+                   header=TRUE,stringsAsFactors = FALSE)
+pairedinfoStolo <- left_join(data.frame(sample_name=col.names.clean),fishinfo,by="sample_name")
+
+## filtering SNPs found only in one group or the other
+pop(stologen) <- pairedinfoStolo$sequencing_center
+
+floragenex <- gl.keep.pop(stologen,
+                          "Floragenex", mono.rm=F)
+floragenex <- gl.recalc.metrics(floragenex)
+floragenex.highcalls <- gl.filter.callrate(floragenex, method="loc", threshold=0.95)
+
+lausanne <- gl.keep.pop(stologen,
+                        "Lausanne", mono.rm=F)
+lausane <- gl.recalc.metrics(lausanne)
+lausanne.highcalls <- gl.filter.callrate(floragenex, method="loc", threshold=0.95)
+
+snps.both <- intersect(locNames(floragenex.highcalls),locNames(lausanne.highcalls))
+stologen.both <- stologen[,locNames(stologen) %in% snps.both]
+
+## extracting genotype matrix
+stolo_alleles <- t(as.matrix(stologen.both))
+
+dim(stolo_alleles)
+head(colnames(stolo_alleles)) ## to make sure that the names look good
+```
+
+Now that I have a workable matrix of genotypes, I will calculate missingness and heterozygosity for each of the individuals. I'm going to remove any individuals with >50% missing data from subsequent analyses.
+
+```{r missingness}
+### calculate missing data for these snps, per indv ###
+missingness <- data.frame(sample_name=colnames(stolo_alleles),
+                          Missing=numeric(ncol(stolo_alleles)),
+                          Heterozygosity=numeric(ncol(stolo_alleles)))
+
+for (i in 1:ncol(stolo_alleles)){
+  missingness[i,2] <- round((length(which(is.na(stolo_alleles[,i]))))/length(rownames(stolo_alleles)),3)
+  missingness[i,3] <- round((length(which((stolo_alleles[,i] == 1))))/(length((stolo_alleles[,i]))-length(which(is.na(stolo_alleles[,i])))),3)
+}
+
+par(mfrow=c(1,2))
+hist(as.numeric(missingness[,3]), 
+     main=paste("Heterozygosity, mean ", round(mean(as.numeric(missingness[,3])),3), sep=""),
+     xlab="Heterozygosity")
+hist(as.numeric(missingness[,2]), 
+     main=paste("Missingness, mean ", round(mean(as.numeric(missingness[,2])),3), sep=""),
+     xlab="% missing data")
+plot(as.numeric(missingness[,2]), 
+     as.numeric(missingness[,3]),
+     xlab="missingness", ylab="heterozygosity")
+
+quantile(as.numeric(missingness[,2]))
+quantile(as.numeric(missingness[,3]))
+
+### check to see whether any indv have high levels of missing data ###
+lowcov<-as.character(missingness[which(missingness[,2] > 0.5),1])
+lowcov
+highhet <- missingness[which(missingness[,3] > 0.3),1]
+highhet
+
+### remove those with lots of missing data ###
+to.remove <- match(c(lowcov,"IKO03","CLU01"),
+                   colnames(stolo_alleles))
+to.keep <- colnames(stolo_alleles)[!(colnames(stolo_alleles) %in% 
+                                       c(lowcov,"IKO03","CLU01"))]
+
+stolo_alleles_nolowcov <- stolo_alleles[,-c(to.remove)]
+attributes(stolo_alleles_nolowcov)$dim ## now have 178 indv
+head(colnames(stolo_alleles_nolowcov))
+
+missingness.nolowcov <- missingness[-c(to.remove),]
+missingness.nolowcov$sample_name <- as.character(missingness.nolowcov$sample_name)
+
+plot(missingness.nolowcov[,2], missingness.nolowcov[,3],
+     xlab="missingness",ylab="heterozyg")
+
+## remove the same individuals from genlight object
+stologen_nolowcov <- gl.drop.ind(stologen.both,
+                                 ind.list=c(lowcov,"IKO03","CLU01"),
+                                 recalc=FALSE, mono.rm=T)
+
+```
+
+## Initial PCA
+This data file now contains contains `r ncol(stolo_alleles_nolowcov)` individuals. Now, we can do the PCA on these individuals!
+
+```{r pca}
+stolo_pca <- do.pca(stolo_alleles_nolowcov)
+pcSummary.stolo <- summary(stolo_pca)
+scree <- plot(stolo_pca, type="lines") 
+```
+
+```{r pca-info}
+fishinfo <- read.table('../data/sardine_all_metadata_clean.csv', 
+                   header=TRUE,stringsAsFactors = FALSE,sep=",")
+
+pairedinfoStolo <- left_join(missingness.nolowcov,
+                           fishinfo,by="sample_name") 
+head(pairedinfoStolo)
+
+## combining fish info with PC results ##
+
+pcaAll.stolo <- data.frame(sample.id = pairedinfoStolo$sample_name,
+                     site = factor(pairedinfoStolo$general_location,
+                            levels=c("Kivu","Kilomoni","Lusenda","Kagunga","Kigoma",
+                                     "Kabimba","NorthMahale","SouthMahale","Ikola","Kipili",
+                                     "Kasanga","Mbete","CrocodileIsland")),
+                     country = factor(pairedinfoStolo$country),
+                     library = factor(pairedinfoStolo$library),
+                     sex = factor(pairedinfoStolo$genetic_sex),
+                     lab = factor(pairedinfoStolo$sequencing_center),
+                     year = factor(pairedinfoStolo$collection_year),
+                     preservation = factor(pairedinfoStolo$preservation_method),
+                     missing = pairedinfoStolo$Missing,
+                     heterozyg = pairedinfoStolo$Heterozygosity,
+                     EV1 = stolo_pca$x[,1],    # the first eigenvector
+                     EV2 = stolo_pca$x[,2],    # the second eigenvector
+                     EV3 = stolo_pca$x[,3],    # the third eigenvector
+                     EV4 = stolo_pca$x[,4],
+                     EV5 = stolo_pca$x[,5],
+                     stringsAsFactors = FALSE)
+
+```
+
+Aaaaand now plotting the PCA.
+
+```{r pca-plot}
+colors<-rainbow(13,start=0, end=0.9,alpha = 0.6)
+colors2<-c("#8DD3C7","#BEBADA","#FB8072","#80B1D3",
+           "#B3DE69","#FCCDE5","#D9D9D9","#BC80BD","#CCEBC5","#FFED6F")
+colors.mt<-c("#FFFFFF","#8DD3C7","#BEBADA","#FB8072","#80B1D3",
+          "#B3DE69","#FCCDE5","#D9D9D9","#BC80BD","#CCEBC5","#FFED6F")
+colors.vir.stolo <- viridis(5)[3:4]
+colors.vir <- plasma(10)
+shapes<-c(0,1,2,3)
+
+## first, plotting by sequencing center ##
+par(oma=c(1,1,1,2), xpd=TRUE, mar=c(5.1, 4.1, 4.1, 8.1),pin=c(3,3),mfrow=c(1,2))
+plot(pcaAll.stolo$EV1, pcaAll.stolo$EV2, pch=21, cex=2, lwd=2, bg=scales::alpha(colors2[pcaAll.stolo$lab],0.6),col=colors2[pcaAll.stolo$lab],
+     xlab=paste("PC1 (", round(pcSummary$importance[2,1]*100, 1), "%)", sep=""),
+     ylab=paste("PC2 (", round(pcSummary$importance[2,2]*100, 1), "%)", sep=""),
+     main="PCA by sequencing center")
+plot(pcaAll.stolo$EV2, pcaAll.stolo$EV3, pch=21, cex=2, lwd=2, bg=scales::alpha(colors2[pcaAll.stolo$lab],0.6),col=colors2[pcaAll.stolo$lab],
+     xlab=paste("PC2 (", round(pcSummary$importance[2,2]*100, 1), "%)", sep=""),
+     ylab=paste("PC3 (", round(pcSummary$importance[2,3]*100, 1), "%)", sep=""))
+#legend("topright",inset=c(-0.3,0),legend=levels(pcaAll.stolo$lab),col=scales::alpha(colors2,0.6),border=NULL,pch=19,bty="n", cex=1, pt.cex=2, pt.lwd=2, horiz=FALSE)
+
+
+## now, plotting by location ##
+plot.new()
+par(mar=c(6,6,1,4),mfrow=c(1,3),xpd=TRUE, oma=c(2,2,1,2))
+plot(pcaAll.stolo$EV1, pcaAll.stolo$EV2, pch=21, cex=4, lwd=2, bg=scales::alpha(colors.vir[pcaAll.stolo$site],0.5),
+     col=colors.vir[pcaAll.stolo$site],
+     xlab=paste("PC1 (", round(pcSummary$importance[2,1]*100, 1), "%)", sep=""),
+     ylab=paste("PC2 (", round(pcSummary$importance[2,2]*100, 1), "%)", sep=""),
+     cex.lab=3,cex.axis=2)
+
+plot(pcaAll.stolo$EV2, pcaAll.stolo$EV3, pch=21,  cex=4, lwd=2, bg=scales::alpha(colors.vir[pcaAll.stolo$site],0.5),
+     col=colors.vir[pcaAll.stolo$site],
+     xlab=paste("PC2 (", round(pcSummary$importance[2,2]*100, 1), "%)", sep=""),
+     ylab=paste("PC3 (", round(pcSummary$importance[2,3]*100, 1), "%)", sep=""),
+     cex.lab=3,cex.axis=2)
+
+plot(pcaAll.stolo$EV3, pcaAll.stolo$EV4, pch=21,  cex=4, lwd=2, bg=scales::alpha(colors.vir[pcaAll.stolo$site],0.5), 
+     col=colors.vir[pcaAll.stolo$site],
+     xlab=paste("PC3 (", round(pcSummary$importance[2,3]*100, 1), "%)", sep=""),
+     ylab=paste("PC4 (", round(pcSummary$importance[2,4]*100, 1), "%)", sep=""),
+     cex.lab=3,cex.axis=2)
+legend("topright",inset=c(-1,0),legend=levels(pcaAll.stolo$site),col=scales::alpha(colors.vir,0.6),border=NULL,pch=19,bty="n", cex=1, pt.cex=2, pt.lwd=2, horiz=FALSE)
+
+```
+
+Based on these PCA results and clustering positions, I'm going to go ahead and assign a "sex" and "group" to each of the individuals.
+
+```{r new-assignments}
+## assigning new groups
+pcaAll.stolo.stolo$new_sex <- case_when(pcaAll.stolo.stolo$EV1 > 0 ~ "female",
+                            pcaAll.stolo.stolo$EV1 < 0 ~ "male")
+
+pcaAll.stolo.stolo$new_sex <- as.factor(pcaAll.stolo.stolo$new_sex)
+
+table(pcaAll.stolo.stolo$new_sex)
+
+pairedinfoStolo$new_sex <- pcaAll.stolo.stolo$new_sex
+
+plot.new()
+par(mfrow=c(1,3),pin=c(2,2),mar=c(6,6,1,2))
+plot(pcaAll.stolo.stolo$EV1, pcaAll.stolo.stolo$EV2, pch=21, cex=2, lwd=1, col=scales::alpha(colors.vir.stolo[pcaAll.stolo.stolo$new_sex],0.6),
+     xlab=paste("PC1 (", round(pcSummary$importance[2,1]*100, 1), "%)", sep=""),
+     ylab=paste("PC2 (", round(pcSummary$importance[2,2]*100, 1), "%)", sep=""),
+     cex.lab=2)
+plot(pcaAll.stolo.stolo$EV2, pcaAll.stolo.stolo$EV3, pch=19, cex=2, lwd=1, col=scales::alpha(colors[pcaAll.stolo.stolo$new_sex],0.6),
+     xlab=paste("PC2 (", round(pcSummary$importance[2,2]*100, 1), "%)", sep=""),
+     ylab=paste("PC3 (", round(pcSummary$importance[2,3]*100, 1), "%)", sep=""),
+     cex.lab=2)
+plot(pcaAll.stolo.stolo$EV3, pcaAll.stolo.stolo$EV4, pch=19, cex=2, lwd=1, col=scales::alpha(colors[pcaAll.stolo.stolo$new_sex],0.6),
+     xlab=paste("PC3 (", round(pcSummary$importance[2,3]*100, 1), "%)", sep=""),
+     ylab=paste("PC4 (", round(pcSummary$importance[2,4]*100, 1), "%)", sep=""),
+     cex.lab=2)
+
+#write.csv(pcaAll.stolo,"pcaAll.stolo.stolo.csv",col.names=TRUE,row.names=FALSE,quote=FALSE)
+
+```
+
+## Identifying sex loci
+Now, I'm going to get into teasing apart the sex loci. Wish me luck! I'm taking some of this code from Katie's script ('DAPC_analysis_dagaa2.R').
+
+```{r sex-dapc}
+## removing low coverage and ambiguous individuals
+
+pairedinfoStolo_nolowcov <- pairedinfoStolo[!(pairedinfoStolo$sample_name %in% c(lowcov)),]
+
+## running DAPC
+dapc1<-dapc(stologen_nolowcov,pop=pairedinfoStolo_nolowcov$genetic_sex,
+            n.pca=20,n.da=3)
+
+## creating null distribution
+stolo.rand <- randomize.dapc(stologen_nolowcov,pop=pairedinfoStolo_nolowcov$new_sex,
+                                  niter=100,return.all=TRUE,npca=20)
+stolo.threshold <- quantile(stolo.rand,c(0.99),na.rm=TRUE)
+
+## plot random and empirical loadings 
+loadings.stolo <- as.data.frame(dapc1$var.contr)
+loadings.stolo$type <- "empirical"
+rand.loadings.stolo <- as.data.frame(stolo.threshold.rand)
+rand.loadings.stolo$type <- "random"
+colnames(rand.loadings.stolo)[1] <- "LD1"
+
+all.loadings.stolo <- rbind(loadings.stolo,rand.loadings.stolo)
+
+p <- ggplot(all.loadings) +
+  geom_density(aes(x=LD1,group=type,fill=type),alpha=0.5) +
+  #coord_cartesian(ylim=c(0,10000),xlim=c(0,0.0050)) +
+  theme_minimal()+ 
+  scale_fill_manual(values=c("gray20","gray90"),na.value = "grey90")+
+  theme(panel.grid=element_blank(),
+        axis.text=element_text(size=14),
+        axis.title = element_text(size=16)) +
+  geom_vline(xintercept=stolo.threshold,linetype="dashed")
+p 
+
+## plotting empirical DAPC results
+scatter(dapc1, scree.da=FALSE, bg="white", 
+        pch=20, cell=0, cstar=0, solid=.4, 
+        cex=2,clab=0, leg=TRUE, 
+        col=c(colors.vir.stolo[1],colors.vir.stolo[2]))
+
+loadingplot(dapc1$var.contr[,1],threshold=stolo.threshold,cex.lab=0.5,srt=90,byfac=TRUE)
+loadingplot(dapc1$var.contr[,1],threshold=0.025,
+            cex.lab=2,srt=90,byfac=FALSE,main="",
+            xlab="SNP Location",ylab="SNP Loading",cex.axis=1.5)
+abline(h=stolo.threshold,lty=2,col="gray20",lwd=2)
+
+## pulling out significant sex loci
+sex.loci <- data.frame(dapc1$var.contr[dapc1$var.contr[,1]>stolo.threshold,])
+
+sex.loci$snp <- locNames(stologen_nolowcov)[as.integer(row.names(sex.loci))]
+sex.loci$scaffold <- as.data.frame(do.call(rbind,regmatches(sex.loci$snp, regexec('([0-9]+)\\_[0-9]', sex.loci$snp))))[,2]
+sex.loci$pos <- as.data.frame(do.call(rbind,regmatches(sex.loci$snp, regexec('[0-9]+_([0-9]+)', sex.loci$snp))))[,2]
+
+colnames(sex.loci)<-c("loading","snp","scaffold","pos")
+sex.loci.stolo <- sex.loci
+
+par(pin=c(8,2),mar=c(4,2,1,1))
+barplot(sort(table(sex.loci$scaffold),decreasing=TRUE),
+        las=2,
+        xlab="",
+        ylab="number of significant sex loci")
+
+sex.chr.stolo <- as.character(unique(sex.loci.stolo$scaffold))
+
+#write.csv(sex.loci,"stolo_sex_loci.csv",quote=FALSE,row.names=FALSE)
+
+## make figure of dapc results
+layout(matrix(c(1,2,3,3), 2, 2, byrow = TRUE))
+scatter(dapc1, scree.da=TRUE, bg="white", pch=20, cell=0, cstar=0, solid=.4, cex=2,clab=0, leg=FALSE, col=colors.vir.stolo,cex.lab=2,cex.axis=1.5)
+
+loadingplot(dapc1$var.contr[,1],
+            threshold=0.025,
+            cex.lab=2,srt=90,byfac=FALSE,main="",xlab="SNP Location",ylab="SNP Loading")
+abline(h=stolo.threshold,lty=2,col="gray20",lwd=2)
+
+barplot(sort(table(sex.loci.stolo$scaffold),decreasing=TRUE),
+       las=2,
+       xlab="",
+       ylab="number of significant sex loci")
+```
+
+
+### Stats and plots for these loci
+Now that we have sex loci and inversion loci identified, let's look at some statistics on them.
+
+```{r heterozygosity, cache=TRUE}
+## pulling only sex loci
+stologen_sex <- stologen_nolowcov[,which(locNames(stologen_nolowcov) %in% sex.loci.stolo$snp)]
+
+stolodiv <- gl.Ho(stologen_nolowcov)
+stolodiv_sex <- gl.Ho(stologen_sex)
+
+plot(stolodiv, xlab='Locus number',ylab='Observed heterozygosity')
+
+##################
+## plotting sex loci
+plot(stolodiv_sex$Hobs, col="blue", pch=19)
+
+stoloSexA <- stologen_nolowcov[pairedinfoStolo_nolowcov$new_sex == "male",]
+stoloSexB <- stologen_nolowcov[pairedinfoStolo_nolowcov$new_sex == "female",]
+
+stologenSexA_sex <- stoloSexA[,which(locNames(stoloSexA) %in% sex.loci.stolo$snp)]
+stologenSexB_sex <- stoloSexB[,which(locNames(stoloSexB) %in% sex.loci.stolo$snp)]
+
+stolodiv_sexA <- gl.Ho(stoloSexA)
+stolodiv_sexB <- gl.Ho(stoloSexB)
+stolodiv_sexA_sexloci <- gl.Ho(stologenSexA_sex)
+stolodiv_sexB_sexloci <- gl.Ho(stologenSexB_sex)
+
+par(mfrow=c(1,2))
+plot(stolodiv_sexA, xlab='Locus',ylab='Observed heterozygosity', main="All loci, colored by group",xaxt='n')
+points(stolodiv_sexB, xlab='Locus',ylab='Observed heterozygosity',col="turquoise")
+
+plot(stolodiv_sexA_sexloci, xlab='Locus',ylab='Observed heterozygosity',ylim=c(0,1), main="Sex Loci, colored by group",xaxt='n')
+#axis(1, at=1:length(stolodiv_sexA_sexloci$Hobs), labels=row.names(as.data.frame(stolodiv_sexA_sexloci$Hobs)), las=2)
+points(stolodiv_sexB_sexloci, xlab='Locus number',ylab='Observed heterozygosity',col="turquoise")
+## pretty cool-- looks like most loci are heterozyg in one group and homozyg in the other!
+
+rm(stologen)
+rm(stologen_sex) 
+rm(stologenSexA_sex) 
+rm(stologenSexB_sex)
+
+sex_geno <- as.data.frame(stologen_sex)
+sex_het <- data.frame(New_ID=row.names(sex_geno),Missing=rep(0,times=length(row.names(sex_geno))),Heterozygosity=rep(0,times=length(row.names(sex_geno))))
+for (i in 1:length(row.names(sex_geno))){
+  sex_het[i,2] <- round((length(which(is.na(sex_geno[i,]))))/length(colnames(sex_geno)),3)
+  sex_het[i,3] <- round((length(which((sex_geno[i,] == 1))))/(length((sex_geno[i,]))-length(which(is.na(sex_geno[i,])))),3)
+}
+
+par(mfrow=c(1,1),pin=c(2,2),mar=c(6,6,1,2))
+plot(pcaAll.stolo$EV1, sex_het$Heterozygosity, pch=21, cex=3, lwd=2, bg=scales::alpha(colors.vir.stolo[pcaAll.stolo$new_sex],0.6), col=colors.vir.stolo[pcaAll.stolo$new_sex],
+     xlab=paste("PC1 (", round(pcSummary$importance[2,1]*100, 1), "%)", sep=""),
+     ylab=expression("H[obs] at Sex Loci"),
+     cex.lab=2)
+```
+
+## Write new VCF file omitting sex & inversion loci
+
+```{r}
+# keeping only snps in common
+stolo_filt <- stolo_vcfR@gt[locNames(stologen) %in% snps.both,]
+stolo_vcfR_filt <- stolo_vcfR
+stolo_vcfR_filt@gt <- stolo_filt
+stolo_vcfR_filt@fix <- stolo_vcfR_filt@fix[locNames(stologen) %in% snps.both,]
+stolo_vcfR_filt
+
+write.vcf(stolo_vcfR_filt,file="../data/stolo_all_0.5_maf0.01.vcf.gz")
+
+
+# removing sex scaffolds, and individuals omitted
+keep <- which(!(stolo_vcfR_filt@fix[,1] %in% sex.chr.stolo))
+
+stolo_filt_noSex <- stolo_vcfR_filt@gt[keep,-c(to.remove)]
+stolo_vcfR_filt_noSex <- stolo_vcfR_filt
+stolo_vcfR_filt_noSex@gt <- stolo_filt_noSex
+stolo_vcfR_filt_noSex@fix <- stolo_vcfR_filt@fix[keep,]
+stolo_vcfR_filt_noSex # to make sure num ind and SNPs makes sense
+
+write.vcf(stolo_vcfR_filt_noSex,file="../data/stolo_all_0.5_maf0.01_noScaffs.vcf.gz")
+
+```
